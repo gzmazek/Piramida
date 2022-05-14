@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import random
 
-POŽIREK = "P"
+POZIREK = "P"
 KOZAREC = "K"
 
 # Spremenil bom raje v piramido oblike takšne, da se lahko sprehajam po piramidi
@@ -16,16 +16,17 @@ def sestavi_piramido(n):
 # še tiste posebne karte, zdaj pa samo 1 - 9 in barve
 
 class Karta:
-    def __init__(self, odprtost=True):
+    def __init__(self, odprtost=True, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
         self.stevilo = random.randrange(10)
         self.barva = random.choice(["modra", "zelena", "rumena", "rdeča"])
         self.ali_je_odprta = odprtost
+        self.vrednost = vrednost # Vrednost pomeni število požirkov
     
     def __repr__(self):
         if not self.ali_je_odprta:
             return "X"
         else:
-            return f"{self.barva} {self.stevilo}" # Tu naredi kasneje da se kar barva pokaže tako
+            return f"{self.stevilo}" # Tu naredi kasneje da se kar barva pokaže tako
 
 # Ta del nisem prepričan kaj moram naredit, ker ne vem ali bo moral 
 # raisat kaki exception in kaj narediti, če je karte že odprta
@@ -41,6 +42,7 @@ class Igralec:
         self.ime = ime
         self.karte = []
         self.stevilo_cakajocih_pozirkov = 0
+        self.stevilo_spitih = 0
 
 # Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
  
@@ -51,7 +53,7 @@ class Igralec:
             pass
         else:
             self.stevilo_cakajocih_pozirkov += 1
-            return POŽIREK
+            return POZIREK
     
 #    def dodaj_drugo_karto(self, vecje_manjse):
 #        self.karte.append(Karta())
@@ -68,7 +70,25 @@ class Igra:
         self.piramida = sestavi_piramido(n)
         self.prva_zaprta_karta = [0,0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
     
-#    def odpri_naslednjo_karto(self):
-#        karta = izberi_nakljucno_karto()
+    def __repr__(self): # To boš še moral verjetno veliko spremeniti, da bo kot igra zahteva
+        prikaz = ""
+        prva_piramida = "Piramida za pitje: \n \n"
+        druga_piramida = "Piramida za deljenje: \n \n"
+        sirina = len(self.piramida)
 
-print(sestavi_piramido(3))
+        for i in range(sirina):
+            prva_piramida += f"Piješ {sirina - i}:" + " " * (sirina - i) + " ".join(map(str, self.piramida[i][:(i + 1)])) + "\n"
+        prikaz += prva_piramida
+        
+        prikaz += "_" * 2 * (sirina + 1) + "\n" * 2 # To je zdaj samo za med developmentom
+
+        for i in range(sirina):
+            druga_piramida += f"Deliš {sirina - i}:" + " " * (sirina - i) + " ".join(map(str, self.piramida[i][(i + 1):])) + "\n"
+        prikaz += druga_piramida
+
+        return prikaz
+
+#    def odpri_naslednjo_karto(self):
+#        karta = izberi_nakljucno_karto() Tukaj daj return karta, da lahko potem v funkciji vseeno pogledaš kdo ima karto
+
+print(Igra(7))
