@@ -16,11 +16,14 @@ def sestavi_piramido(n):
 # še tiste posebne karte, zdaj pa samo 1 - 9 in barve
 
 class Karta:
-    def __init__(self, odprtost=True, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
+    def __init__(self, odprtost=False, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
         self.stevilo = random.randrange(10)
         self.barva = random.choice(["modra", "zelena", "rumena", "rdeča"])
         self.ali_je_odprta = odprtost
         self.vrednost = vrednost # Vrednost pomeni število požirkov
+
+    def __gt__(self, other):
+        return self.stevilo > other.stevilo
     
     def __repr__(self):
         if not self.ali_je_odprta:
@@ -43,23 +46,40 @@ class Igralec:
         self.karte = []
         self.stevilo_cakajocih_pozirkov = 0
         self.stevilo_spitih = 0
+        self.stevilo_nepodeljenih = 0
 
 # Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
  
-    def dodaj_prvo_karto(self, barva: str): # V vmesniku bo treba vmes tu vprašat za barvo, 
+    def ugiba_prvo_karto(self, barva: str): # V vmesniku bo treba vmes tu vprašat za barvo, 
         # pa nekje mores dodat da te opozori ce se zatipkas/naredi da lahko izbiras
-        self.karte.append(Karta())
+        """Za argument zapišemo barvo, ki jo igralec ugiba"""
+        self.karte.append(Karta(odprtost=True))
         if barva == self.karte[-1].barva:
             pass
         else:
             self.stevilo_cakajocih_pozirkov += 1
-            return POZIREK
+            return POZIREK # To nisem ziher za kaj bo dobro, isto pri spodnjem primeru
     
-#    def dodaj_drugo_karto(self, vecje_manjse):
-#        self.karte.append(Karta())
-#
-#    def dodaj_tretjo_karto(self, barva):
-#        self.karte.append(Karta())
+    def ugiba_drugo_karto(self, vecje_manjse: bool):
+        """Za argument zapiše True, če bo naslednja karta STROGO večja in False drugače. Če se karta ponovi, igralec vedno pije."""
+        self.karte.append(Karta(odprtost=True))
+        if self.karte[-1] > self.karte[-2]:
+            pass
+        else:
+            self.stevilo_cakajocih_pozirkov += 1
+            return POZIREK
+
+    def ugiba_tretjo_karto(self, vmes: bool):
+        """Za argument zapiše True, če bo karta točno med obema trenutnima kartama. Ponovno se karta ne sme ponoviti."""
+        a = self.karte[0]
+        b = self.karte[1]
+        self.karte.append(Karta(odprtost=True))
+        nova = self.karte[-1]
+        if (a < nova and nova < b) or (b < nova and nova < a):
+            pass
+        else:
+            self.stevilo_cakajocih_pozirkov += 1
+            return POZIREK
 
 # Tukaj boš moral dodati __repr__, da lahko piramido predstavim takšno kot je
 # Pa tudi igralce, vsaj za tekstovni vmesnik
@@ -69,6 +89,7 @@ class Igra:
         self.igralci = []
         self.piramida = sestavi_piramido(n)
         self.prva_zaprta_karta = [0,0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
+        # Naredi tukaj še množico kart, ki jih imajo vsi v rokah, da potem preveriš, če moraš slučajno dodati novo karto, ker je noben nima
     
     def __repr__(self): # To boš še moral verjetno veliko spremeniti, da bo kot igra zahteva
         prikaz = ""
@@ -86,9 +107,44 @@ class Igra:
             druga_piramida += f"Deliš {sirina - i}:" + " " * (sirina - i) + " ".join(map(str, self.piramida[i][(i + 1):])) + "\n"
         prikaz += druga_piramida
 
+        for i in self.igralci:
+            prikaz += f"Igralec {i.ime}: Karte: {i.karte}. Narediti mora {i.stevilo_cakajocih_pozirkov} požirkov. Deli jih lahko še {i.stevilo_nepodeljenih}. \n"
+
         return prikaz
+
+    def dodaj_igralca(self, ime):
+        self.igralci.append(Igralec(ime))
 
 #    def odpri_naslednjo_karto(self):
 #        karta = izberi_nakljucno_karto() Tukaj daj return karta, da lahko potem v funkciji vseeno pogledaš kdo ima karto
 
-print(Igra(7))
+
+###########################################################
+#Ta del kode je samo za preizkušanje funkcij
+###########################################################
+
+poskusna_igra = Igra(4)
+
+poskusna_igra.dodaj_igralca("Vid")
+poskusna_igra.dodaj_igralca("Gal")
+poskusna_igra.dodaj_igralca("Maša")
+
+print(poskusna_igra)
+
+poskusna_igra.igralci[0].ugiba_prvo_karto("modra")
+poskusna_igra.igralci[1].ugiba_prvo_karto("modra")
+poskusna_igra.igralci[2].ugiba_prvo_karto("modra")
+
+print(poskusna_igra)
+
+poskusna_igra.igralci[0].ugiba_drugo_karto(True)
+poskusna_igra.igralci[1].ugiba_drugo_karto(True)
+poskusna_igra.igralci[2].ugiba_drugo_karto(True)
+
+print(poskusna_igra)
+
+poskusna_igra.igralci[0].ugiba_tretjo_karto(True)
+poskusna_igra.igralci[1].ugiba_tretjo_karto(True)
+poskusna_igra.igralci[2].ugiba_tretjo_karto(True)
+
+print(poskusna_igra)
