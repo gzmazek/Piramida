@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import random
 
+POŽIREK = "P"
+KOZAREC = "K"
 
 # Spremenil bom raje v piramido oblike takšne, da se lahko sprehajam po piramidi
 # ko odpiram kart po vrsti, torej da se skupaj držijo iste vrstice dveh piramid
@@ -27,6 +29,7 @@ class Karta:
 
 # Ta del nisem prepričan kaj moram naredit, ker ne vem ali bo moral 
 # raisat kaki exception in kaj narediti, če je karte že odprta
+# !! res bi lahko pogledal še kak se raise svoj exception
 
     def odpri_karto(self):
         if not self.ali_je_odprta:
@@ -37,9 +40,24 @@ class Igralec:
     def __init__(self, ime):
         self.ime = ime
         self.karte = []
+        self.stevilo_cakajocih_pozirkov = 0
+
+# Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
+ 
+    def dodaj_prvo_karto(self, barva: str): # V vmesniku bo treba vmes tu vprašat za barvo, 
+        # pa nekje mores dodat da te opozori ce se zatipkas/naredi da lahko izbiras
+        self.karte.append(Karta())
+        if barva == self.karte[-1].barva:
+            pass
+        else:
+            self.stevilo_cakajocih_pozirkov += 1
+            return POŽIREK
     
-    def dodaj_karto(self, karta: Karta):
-        self.karte.append(karta)
+#    def dodaj_drugo_karto(self, vecje_manjse):
+#        self.karte.append(Karta())
+#
+#    def dodaj_tretjo_karto(self, barva):
+#        self.karte.append(Karta())
 
 # Tukaj boš moral dodati __repr__, da lahko piramido predstavim takšno kot je
 # Pa tudi igralce, vsaj za tekstovni vmesnik
