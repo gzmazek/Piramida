@@ -4,12 +4,9 @@ import random
 POZIREK = "P"
 KOZAREC = "K"
 
-# Spremenil bom raje v piramido oblike takšne, da se lahko sprehajam po piramidi
-# ko odpiram kart po vrsti, torej da se skupaj držijo iste vrstice dveh piramid
-
 def sestavi_piramido(n):
     """Sestavi sezanm vrstic, kjer so karte zaprte"""
-    return [[Karta() for _ in range(2 * (j + 1))] for j in range(n)]
+    return [[Karta(vrednost=n-j) for _ in range(2 * (j + 1))] for j in range(n)]
 
 
 # Karte so pri tej igri vedno naključne, tudi ponavljajo se lahko, kasneje lahko dodaš
@@ -49,7 +46,10 @@ class Igralec:
         self.stevilo_nepodeljenih = 0
 
 # Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
- 
+    def dodeli_pozirke(self, n=1):
+        self.stevilo_cakajocih_pozirkov += n
+        print(f"{self.ime}, dobil si {n} požirkov.")
+
     def ugiba_prvo_karto(self, barva: str): # V vmesniku bo treba vmes tu vprašat za barvo, 
         # pa nekje mores dodat da te opozori ce se zatipkas/naredi da lahko izbiras
         """Za argument zapišemo barvo, ki jo igralec ugiba"""
@@ -57,8 +57,7 @@ class Igralec:
         if barva == self.karte[-1].barva:
             pass
         else:
-            self.stevilo_cakajocih_pozirkov += 1
-            return POZIREK # To nisem ziher za kaj bo dobro, isto pri spodnjem primeru
+            self.dodeli_pozirke(self.karte[-1].vrednost) # !!!!! Tukaj namesto tega messega printanja samo das return pa tisto funkcijo s katero sprozis sporocilo
     
     def ugiba_drugo_karto(self, vecje_manjse: bool):
         """Za argument zapiše True, če bo naslednja karta STROGO večja in False drugače. Če se karta ponovi, igralec vedno pije."""
@@ -66,8 +65,7 @@ class Igralec:
         if self.karte[-1] > self.karte[-2]:
             pass
         else:
-            self.stevilo_cakajocih_pozirkov += 1
-            return POZIREK
+            self.dodeli_pozirke(self.karte[-1].vrednost)
 
     def ugiba_tretjo_karto(self, vmes: bool):
         """Za argument zapiše True, če bo karta točno med obema trenutnima kartama. Ponovno se karta ne sme ponoviti."""
@@ -78,8 +76,7 @@ class Igralec:
         if (a < nova and nova < b) or (b < nova and nova < a):
             pass
         else:
-            self.stevilo_cakajocih_pozirkov += 1
-            return POZIREK
+            self.dodeli_pozirke(self.karte[-1].vrednost)
 
 # Tukaj boš moral dodati __repr__, da lahko piramido predstavim takšno kot je
 # Pa tudi igralce, vsaj za tekstovni vmesnik
@@ -89,8 +86,8 @@ class Igra:
         self.igralci = []
         self.piramida = sestavi_piramido(n)
         self.prva_zaprta_karta = [0,0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
-        # Naredi tukaj še množico kart, ki jih imajo vsi v rokah, da potem preveriš, če moraš slučajno dodati novo karto, ker je noben nima
-    
+        self.vse_karte_igralcev = set()
+
     def __repr__(self): # To boš še moral verjetno veliko spremeniti, da bo kot igra zahteva
         prikaz = ""
         prva_piramida = "Piramida za pitje: \n \n"
@@ -115,9 +112,11 @@ class Igra:
     def dodaj_igralca(self, ime):
         self.igralci.append(Igralec(ime))
 
+
 #    def odpri_naslednjo_karto(self):
 #        karta = izberi_nakljucno_karto() Tukaj daj return karta, da lahko potem v funkciji vseeno pogledaš kdo ima karto
-
+# pol ko to definiras naredi funkcijo ki preevri kdo ima te karte in jo srozi z return, če je karta med igralci drugace pa else pa ru
+# turn tisto da da novo karto gor
 
 ###########################################################
 #Ta del kode je samo za preizkušanje funkcij
@@ -125,7 +124,7 @@ class Igra:
 
 poskusna_igra = Igra(4)
 
-poskusna_igra.dodaj_igralca("Vid")
+poskusna_igra.dodaj_igralca("Vita")
 poskusna_igra.dodaj_igralca("Gal")
 poskusna_igra.dodaj_igralca("Maša")
 
