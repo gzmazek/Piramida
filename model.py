@@ -4,10 +4,18 @@ import random
 POZIREK = "P"
 KOZAREC = "K"
 
+############################# SPLOŠNE FUNKCIJE #############################
 def sestavi_piramido(n):
     """Sestavi sezanm vrstic, kjer so karte zaprte"""
     return [[Karta(vrednost=n-j) for _ in range(2 * (j + 1))] for j in range(n)]
 
+def koliko_pozirkov(igralec, karta):
+    pozirki = 0
+    for i in igralec.karte:
+        if i == karta:
+            pozirki += karta.vrednost
+    return pozirki
+############################################################################
 
 # Karte so pri tej igri vedno naključne, tudi ponavljajo se lahko, kasneje lahko dodaš
 # še tiste posebne karte, zdaj pa samo 1 - 9 in barve
@@ -18,6 +26,9 @@ class Karta:
         self.barva = random.choice(["modra", "zelena", "rumena", "rdeča"])
         self.ali_je_odprta = odprtost
         self.vrednost = vrednost # Vrednost pomeni število požirkov
+
+    def __eq__(self, other):
+        return self.stevilo == other.stevilo
 
     def __gt__(self, other):
         return self.stevilo > other.stevilo
@@ -32,9 +43,9 @@ class Karta:
 # raisat kaki exception in kaj narediti, če je karte že odprta
 # !! res bi lahko pogledal še kak se raise svoj exception
 
-    def odpri_karto(self):
-        if not self.ali_je_odprta:
-            self.ali_je_odprta = True
+    def odpri_karto(self):  # Tukaj naredi nekaj da ni vredu če obrneš 
+        self.ali_je_odprta = True
+        return self
 
 
 class Igralec:
@@ -83,9 +94,10 @@ class Igralec:
 
 class Igra:
     def __init__(self, n=4):
+        self.velikost_piramide = n
         self.igralci = []
         self.piramida = sestavi_piramido(n)
-        self.prva_zaprta_karta = [0,0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
+        self.prva_zaprta_karta = [n - 1, 0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
         self.vse_karte_igralcev = set()
 
     def __repr__(self): # To boš še moral verjetno veliko spremeniti, da bo kot igra zahteva
@@ -112,15 +124,38 @@ class Igra:
     def dodaj_igralca(self, ime):
         self.igralci.append(Igralec(ime))
 
+    def odpri_naslednjo_karto(self):
+        """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
+        n = self.velikost_piramide
+        karta_ki_jo_odpiram = self.piramida[self.prva_zaprta_karta[0]][self.prva_zaprta_karta[1]].odpri_karto()
+        if self.prva_zaprta_karta == [0, 0]:
+            self.prva_zaprta_karta = None ## !!! TUKAJ MORAŠ IGRO ZAKLJUČITI POTEM KO SPIJEJO tisti en loop se naj še naredi potem pa konec
+        elif 2 * self.prva_zaprta_karta[0] + 1 == self.prva_zaprta_karta[1]:
+            self.prva_zaprta_karta = [self.prva_zaprta_karta[0] - 1, 0]
+        else:
+            self.prva_zaprta_karta[1] += 1
+        return karta_ki_jo_odpiram
 
-#    def odpri_naslednjo_karto(self):
-#        karta = izberi_nakljucno_karto() Tukaj daj return karta, da lahko potem v funkciji vseeno pogledaš kdo ima karto
-# pol ko to definiras naredi funkcijo ki preevri kdo ima te karte in jo srozi z return, če je karta med igralci drugace pa else pa ru
-# turn tisto da da novo karto gor
+    def preveri_kdo_dobi_pozirke(self, karta: Karta):
+        """Funkcija vzame karto in vrne slovar z elementi {Igralec: požirki}. Tukaj ni važno, ali se karta deli ali pije."""
+        return {igralec: koliko_pozirkov(igralec, karta) for igralec in self.igralci}
+    
+    def naredi_potezo(self):
+        """Funkcija odpre naslednjo karto in vsem doda koliko mora narediti vsak požirkov"""
+        ali_se_deli = self.prva_zaprta_karta[1] > self.prva_zaprta_karta[0] # True, če se mora deliti
+        slovar_pozirkov = self.preveri_kdo_dobi_pozirke(self.odpri_naslednjo_karto())
+        if ali_se_deli:
+            for igralec in self.igralci:
+                igralec.stevilo_nepodeljenih += slovar_pozirkov[igralec]
+        else:
+            for igralec in self.igralci:
+                igralec.stevilo_cakajocih_pozirkov += slovar_pozirkov[igralec]
+        print(self) # Ta del je samo za zdaj, ko igram v terminalu in preverjam delovanje funkcij
 
-###########################################################
-#Ta del kode je samo za preizkušanje funkcij
-###########################################################
+
+#############################################
+#Ta del kode je samo za preizkušanje funkcij#
+#############################################
 
 poskusna_igra = Igra(4)
 
