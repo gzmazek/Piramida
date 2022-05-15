@@ -128,7 +128,7 @@ class Igra:
         """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
         n = self.velikost_piramide
         karta_ki_jo_odpiram = self.piramida[self.prva_zaprta_karta[0]][self.prva_zaprta_karta[1]].odpri_karto()
-        if self.prva_zaprta_karta == [0, 0]:
+        if self.prva_zaprta_karta == [0, 1]:
             self.prva_zaprta_karta = None ## !!! TUKAJ MORAŠ IGRO ZAKLJUČITI POTEM KO SPIJEJO tisti en loop se naj še naredi potem pa konec
         elif 2 * self.prva_zaprta_karta[0] + 1 == self.prva_zaprta_karta[1]:
             self.prva_zaprta_karta = [self.prva_zaprta_karta[0] - 1, 0]
@@ -140,7 +140,7 @@ class Igra:
         """Funkcija vzame karto in vrne slovar z elementi {Igralec: požirki}. Tukaj ni važno, ali se karta deli ali pije."""
         return {igralec: koliko_pozirkov(igralec, karta) for igralec in self.igralci}
     
-    def naredi_potezo(self):
+    def naredi_potezo(self): # Ta je verjetno malo manj uporabna
         """Funkcija odpre naslednjo karto in vsem doda koliko mora narediti vsak požirkov"""
         ali_se_deli = self.prva_zaprta_karta[1] > self.prva_zaprta_karta[0] # True, če se mora deliti
         slovar_pozirkov = self.preveri_kdo_dobi_pozirke(self.odpri_naslednjo_karto())
