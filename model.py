@@ -3,6 +3,8 @@ import random
 
 POZIREK = "P"
 KOZAREC = "K"
+PIJACE = {"pivo", "cuba-libre", "gin-tonic", "vino"}
+SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC = "X"
 
 ############################# SPLOŠNE FUNKCIJE #############################
 def sestavi_piramido(n):
@@ -47,19 +49,38 @@ class Karta:
         self.ali_je_odprta = True
         return self
 
+    def v_slovar(self): # To je samo, če igralec med igro zapusti spletno stran, potem bo imel moćnost nadaljuj igro in začni novo igro, ki to igro izbriše
+        return {
+            "stevilo": self.stevilo,
+            "barva": self.barva,
+            "odprtost": self.ali_je_odprta,
+            "vrednost": self.vrednost
+        }
 
-class Igralec:
+
+class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo poskrbela že funkcija prijatelji
     def __init__(self, ime):
         self.ime = ime
         self.karte = []
         self.stevilo_cakajocih_pozirkov = 0
         self.stevilo_spitih = 0
-        self.stevilo_nepodeljenih = 0
+        self.stevilo_nepodeljenih = 0 # To bom kasneje izločil, tako kot eno od zgornjih, igralec potrebuje le stanje v kozarcu in število spitih
+        self.stanje_v_kozarcu = 10 # tukaj lahko kazneje narediš, da je stanje v kozarcu drugačno ampak zelo ni nujno
+
+    def __eq__(self, other):
+        return self.ime == other.ime
+    
+    def napolni_kozarec(self):
+        self.stanje_v_kozarcu += 10
+        return SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC
+
 
 # Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
     def dodeli_pozirke(self, n=1):
-        self.stevilo_cakajocih_pozirkov += n
-        print(f"{self.ime}, dobil si {n} požirkov.")
+        self.stanje_v_kozarcu -= n
+        self.stevilo_spitih += n
+        while self.stanje_v_kozarcu <= 0:
+            self.napolni_kozarec()
 
     def ugiba_prvo_karto(self, barva: str): # V vmesniku bo treba vmes tu vprašat za barvo, 
         # pa nekje mores dodat da te opozori ce se zatipkas/naredi da lahko izbiras
@@ -88,6 +109,11 @@ class Igralec:
             pass
         else:
             self.dodeli_pozirke(self.karte[-1].vrednost)
+    
+#    def v_slovar(self):
+#        return {
+#           ""
+#        }
 
 # Tukaj boš moral dodati __repr__, da lahko piramido predstavim takšno kot je
 # Pa tudi igralce, vsaj za tekstovni vmesnik
@@ -151,7 +177,29 @@ class Igra:
             for igralec in self.igralci:
                 igralec.stevilo_cakajocih_pozirkov += slovar_pozirkov[igralec]
         print(self) # Ta del je samo za zdaj, ko igram v terminalu in preverjam delovanje funkcij
+    
+    def podeli_pozirke(self, igralec_ki_dobi: Igralec, st_pozirkov: int):
+        for i in self.igralci:
+            if i == igralec_ki_dobi:
+                i.dodeli_pozirke(st_pozirkov)
 
+
+class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
+    def __init__(self, ime, e_mail):
+        self.ime = ime
+        self.e_mail = e_mail
+        self.pozirkov_spite_pijace = {}
+    
+class Uporabnik: 
+    def __init__(self, igra=None):
+        self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
+        self.prijatelji = set()
+    
+    def dodaj_prijatelja(self, prijatelj: Prijatelj):
+        self.prijatelji.add(prijatelj)
+
+    def odstrani_prijatelja(self, prijatelj):
+        self.prijatelji.remove(prijatelj)
 
 #############################################
 #Ta del kode je samo za preizkušanje funkcij#
