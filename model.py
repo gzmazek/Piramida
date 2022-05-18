@@ -5,6 +5,7 @@ import json
 POZIREK = "P"
 KOZAREC = "K"
 PIJACE = {"pivo", "cuba-libre", "gin-tonic", "vino"}
+BARVE = ["modra", "zelena", "rumena", "rdeča"]
 SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC = "X"
 
 ############################# SPLOŠNE FUNKCIJE #############################
@@ -21,11 +22,15 @@ def koliko_pozirkov(igralec, karta):
 ############################################################################
 
 class Karta:
-    def __init__(self, odprtost=False, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
-        self.stevilo = random.randrange(10)
-        self.barva = random.choice(["modra", "zelena", "rumena", "rdeča"])
+    def __init__(self, stevilo=None, barva=None, odprtost=False, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
+        self.stevilo = (stevilo if stevilo != None else random.randrange(10))
+        self.barva = (barva if barva != None else random.choice(BARVE))
         self.ali_je_odprta = odprtost
         self.vrednost = vrednost # Vrednost pomeni število požirkov
+    
+    def __repr__(self) -> str:
+        return f"{self.stevilo}"
+
 
     def __eq__(self, other):
         return self.stevilo == other.stevilo
@@ -44,15 +49,23 @@ class Karta:
             "odprtost": self.ali_je_odprta,
             "vrednost": self.vrednost
         }
+    
+def karta_iz_slovarja(slovar):
+    return Karta(
+        slovar["stevilo"],
+        slovar["barva"],
+        slovar["odprtost"],
+        slovar["vrednost"]
+    )
 
 
 class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo poskrbela že funkcija prijatelji
-    def __init__(self, ime, pijaca):
+    def __init__(self, ime, pijaca, karte=[], stevilo_spitih=0, stanje_v_kozarcu=10):
         self.ime = ime
         self.pijaca = pijaca
-        self.karte = []
-        self.stevilo_spitih = 0
-        self.stanje_v_kozarcu = 10 # tukaj lahko kazneje narediš, da je stanje v kozarcu drugačno ampak zelo ni nujno
+        self.karte = karte
+        self.stevilo_spitih = stevilo_spitih
+        self.stanje_v_kozarcu = stanje_v_kozarcu # tukaj lahko kazneje narediš, da je stanje v kozarcu drugačno ampak zelo ni nujno
 
     def __eq__(self, other):
         return self.ime == other.ime
@@ -104,14 +117,23 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
             "popito": self.stevilo_spitih,
             "stanje": self.stanje_v_kozarcu
         }
+
+def igralec_iz_slovarja(slovar):
+    return Igralec(
+        slovar["ime"],
+        slovar["pijaca"],
+        [karta_iz_slovarja(sl) for sl in slovar["karte"]],
+        slovar["popito"],
+        slovar["stanje"]
+    )
     
 class Igra:
-    def __init__(self, n=4):
+    def __init__(self, n=4, igralci=[], piramida=0, prva_zaprta_karta=None):
         self.velikost_piramide = n
-        self.igralci = []
-        self.piramida = sestavi_piramido(n)
-        self.prva_zaprta_karta = [n - 1, 0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
-        self.vse_karte_igralcev = set()
+        self.igralci = igralci
+        self.piramida = (sestavi_piramido(n) if piramida == 0 else piramida)
+        self.prva_zaprta_karta = ([n - 1, 0] if prva_zaprta_karta == None else prva_zaprta_karta) # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
+        self.vse_karte_igralcev = set() # To se naredi da se ob tem ko nardis igro naredi
 
     def dodaj_igralca(self, ime):
         self.igralci.append(Igralec(ime))
@@ -146,9 +168,16 @@ class Igra:
     def v_slovar(self):
         return {
             "igralci": [igralec.v_slovar() for igralec in self.igralci],
-            "piramida": self.piramida,
+            "piramida": list(map(lambda seznam: list(map(lambda karta: karta.v_slovar(),seznam)),self.piramida)), # Ta stvar je zlo grda poglej ce sploh dela pa jo polesaj
             "prva_zaprta_karta": self.prva_zaprta_karta, # sicer ni potrebno ker se lahko izrazi
         }
+
+def igra_iz_slovarja(slovar):
+    return Igra(
+        len(slovar["piramida"]),
+        [igra_iz_slovarja(sl) for sl in slovar["igralci"]],
+        ############# ! ta funkcija še ni dokončana ####################
+    )
 
 class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
     def __init__(self, ime, e_mail):

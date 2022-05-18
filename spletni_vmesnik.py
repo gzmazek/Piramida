@@ -1,5 +1,7 @@
 import bottle
-import model
+from model import Uporabnik, Prijatelj, Igra, Igralec, Karta
+
+DATOTEKA_S_STANJEM = "stanje.json"
 
 @bottle.get('/')
 def osnovna_stran():
