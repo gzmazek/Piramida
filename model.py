@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import random
+import json 
 
 POZIREK = "P"
 KOZAREC = "K"
@@ -19,9 +20,6 @@ def koliko_pozirkov(igralec, karta):
     return pozirki
 ############################################################################
 
-# Karte so pri tej igri vedno naključne, tudi ponavljajo se lahko, kasneje lahko dodaš
-# še tiste posebne karte, zdaj pa samo 1 - 9 in barve
-
 class Karta:
     def __init__(self, odprtost=False, vrednost=1):  #Tukaj pazi da je na koncu False saj vmes preverjam tako da dam na True
         self.stevilo = random.randrange(10)
@@ -35,16 +33,6 @@ class Karta:
     def __gt__(self, other):
         return self.stevilo > other.stevilo
     
-    def __repr__(self):
-        if not self.ali_je_odprta:
-            return "X"
-        else:
-            return f"{self.stevilo}" # Tu naredi kasneje da se kar barva pokaže tako
-
-# Ta del nisem prepričan kaj moram naredit, ker ne vem ali bo moral 
-# raisat kaki exception in kaj narediti, če je karte že odprta
-# !! res bi lahko pogledal še kak se raise svoj exception
-
     def odpri_karto(self):  # Tukaj naredi nekaj da ni vredu če obrneš 
         self.ali_je_odprta = True
         return self
@@ -59,12 +47,11 @@ class Karta:
 
 
 class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo poskrbela že funkcija prijatelji
-    def __init__(self, ime):
+    def __init__(self, ime, pijaca):
         self.ime = ime
+        self.pijaca = pijaca
         self.karte = []
-        self.stevilo_cakajocih_pozirkov = 0
         self.stevilo_spitih = 0
-        self.stevilo_nepodeljenih = 0 # To bom kasneje izločil, tako kot eno od zgornjih, igralec potrebuje le stanje v kozarcu in število spitih
         self.stanje_v_kozarcu = 10 # tukaj lahko kazneje narediš, da je stanje v kozarcu drugačno ampak zelo ni nujno
 
     def __eq__(self, other):
@@ -73,7 +60,6 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
     def napolni_kozarec(self):
         self.stanje_v_kozarcu += 10
         return SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC
-
 
 # Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
     def dodeli_pozirke(self, n=1):
@@ -109,15 +95,16 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
             pass
         else:
             self.dodeli_pozirke(self.karte[-1].vrednost)
+        
+    def v_slovar(self):
+        return {
+            "ime": self.ime,
+            "pijaca": self.pijaca,
+            "karte": [karte.v_slovar() for karte in self.karte],
+            "popito": self.stevilo_spitih,
+            "stanje": self.stanje_v_kozarcu
+        }
     
-#    def v_slovar(self):
-#        return {
-#           ""
-#        }
-
-# Tukaj boš moral dodati __repr__, da lahko piramido predstavim takšno kot je
-# Pa tudi igralce, vsaj za tekstovni vmesnik
-
 class Igra:
     def __init__(self, n=4):
         self.velikost_piramide = n
@@ -125,27 +112,6 @@ class Igra:
         self.piramida = sestavi_piramido(n)
         self.prva_zaprta_karta = [n - 1, 0] # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
         self.vse_karte_igralcev = set()
-
-    def __repr__(self): # To boš še moral verjetno veliko spremeniti, da bo kot igra zahteva
-        prikaz = ""
-        prva_piramida = "Piramida za pitje: \n \n"
-        druga_piramida = "Piramida za deljenje: \n \n"
-        sirina = len(self.piramida)
-
-        for i in range(sirina):
-            prva_piramida += f"Piješ {sirina - i}:" + " " * (sirina - i) + " ".join(map(str, self.piramida[i][:(i + 1)])) + "\n"
-        prikaz += prva_piramida
-        
-        prikaz += "_" * 2 * (sirina + 1) + "\n" * 2 # To je zdaj samo za med developmentom
-
-        for i in range(sirina):
-            druga_piramida += f"Deliš {sirina - i}:" + " " * (sirina - i) + " ".join(map(str, self.piramida[i][(i + 1):])) + "\n"
-        prikaz += druga_piramida
-
-        for i in self.igralci:
-            prikaz += f"Igralec {i.ime}: Karte: {i.karte}. Narediti mora {i.stevilo_cakajocih_pozirkov} požirkov. Deli jih lahko še {i.stevilo_nepodeljenih}. \n"
-
-        return prikaz
 
     def dodaj_igralca(self, ime):
         self.igralci.append(Igralec(ime))
@@ -170,25 +136,32 @@ class Igra:
         """Funkcija odpre naslednjo karto in vsem doda koliko mora narediti vsak požirkov"""
         ali_se_deli = self.prva_zaprta_karta[1] > self.prva_zaprta_karta[0] # True, če se mora deliti
         slovar_pozirkov = self.preveri_kdo_dobi_pozirke(self.odpri_naslednjo_karto())
-        if ali_se_deli:
-            for igralec in self.igralci:
-                igralec.stevilo_nepodeljenih += slovar_pozirkov[igralec]
-        else:
-            for igralec in self.igralci:
-                igralec.stevilo_cakajocih_pozirkov += slovar_pozirkov[igralec]
-        print(self) # Ta del je samo za zdaj, ko igram v terminalu in preverjam delovanje funkcij
+        return (ali_se_deli, slovar_pozirkov)
     
     def podeli_pozirke(self, igralec_ki_dobi: Igralec, st_pozirkov: int):
         for i in self.igralci:
             if i == igralec_ki_dobi:
                 i.dodeli_pozirke(st_pozirkov)
-
+    
+    def v_slovar(self):
+        return {
+            "igralci": [igralec.v_slovar() for igralec in self.igralci],
+            "piramida": self.piramida,
+            "prva_zaprta_karta": self.prva_zaprta_karta, # sicer ni potrebno ker se lahko izrazi
+        }
 
 class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
     def __init__(self, ime, e_mail):
         self.ime = ime
         self.e_mail = e_mail
         self.pozirkov_spite_pijace = {}
+    
+    def v_slovar(self):
+        return {
+            "ime": self.ime,
+            "e_mail": self.e_mail,
+            "pozirkov_spite_pijace": self.pozirkov_spite_pijace
+        }
     
 class Uporabnik: 
     def __init__(self, igra=None):
@@ -201,32 +174,24 @@ class Uporabnik:
     def odstrani_prijatelja(self, prijatelj):
         self.prijatelji.remove(prijatelj)
 
-#############################################
-#Ta del kode je samo za preizkušanje funkcij#
-#############################################
+    def v_slovar(self):
+        return {
+            "igra": self.igra.v_slovar(),
+            "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji]
+        }
 
-poskusna_igra = Igra(4)
+class Stanje:
+    def __init__(self):
+        self.uporabniki = []
+    
+    def dodaj_uporabnika(self, uporabnik: Uporabnik):
+        self.uporabniki.append(uporabnik)
+    
+    def v_slovar(self):
+        return {
+            "uporabniki": [uporabnik.v_slovar() for uporabnik in self.uporabniki]
+        }
 
-poskusna_igra.dodaj_igralca("Vita")
-poskusna_igra.dodaj_igralca("Gal")
-poskusna_igra.dodaj_igralca("Maša")
-
-print(poskusna_igra)
-
-poskusna_igra.igralci[0].ugiba_prvo_karto("modra")
-poskusna_igra.igralci[1].ugiba_prvo_karto("modra")
-poskusna_igra.igralci[2].ugiba_prvo_karto("modra")
-
-print(poskusna_igra)
-
-poskusna_igra.igralci[0].ugiba_drugo_karto(True)
-poskusna_igra.igralci[1].ugiba_drugo_karto(True)
-poskusna_igra.igralci[2].ugiba_drugo_karto(True)
-
-print(poskusna_igra)
-
-poskusna_igra.igralci[0].ugiba_tretjo_karto(True)
-poskusna_igra.igralci[1].ugiba_tretjo_karto(True)
-poskusna_igra.igralci[2].ugiba_tretjo_karto(True)
-
-print(poskusna_igra)
+    def v_datoteko(self, ime_datoteke):
+        with open(ime_datoteke, "w") as f:
+            json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
