@@ -168,22 +168,23 @@ class Igra:
     def v_slovar(self):
         return {
             "igralci": [igralec.v_slovar() for igralec in self.igralci],
-            "piramida": list(map(lambda seznam: list(map(lambda karta: karta.v_slovar(),seznam)),self.piramida)), # Ta stvar je zlo grda poglej ce sploh dela pa jo polesaj
+            "piramida": list(map(lambda seznam: list(map(lambda karta: karta.v_slovar(), seznam)), self.piramida)), # Ta stvar je zlo grda poglej ce sploh dela pa jo polesaj
             "prva_zaprta_karta": self.prva_zaprta_karta, # sicer ni potrebno ker se lahko izrazi
         }
 
-def igra_iz_slovarja(slovar):
+def igra_iz_slovarja(slovar: dict): # To stvar boš moral še zelo preveriti ker ne vem če dela prav!!
     return Igra(
         len(slovar["piramida"]),
-        [igra_iz_slovarja(sl) for sl in slovar["igralci"]],
-        ############# ! ta funkcija še ni dokončana ####################
+        [igralec_iz_slovarja(sl) for sl in slovar["igralci"]],
+        [list(map(karta_iz_slovarja, vrstica)) for vrstica in slovar["piramida"]],
+        slovar["prva_zaprta_karta"]
     )
 
 class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
-    def __init__(self, ime, e_mail):
+    def __init__(self, ime, e_mail, pozirkov_spite_pijace={}):
         self.ime = ime
         self.e_mail = e_mail
-        self.pozirkov_spite_pijace = {}
+        self.pozirkov_spite_pijace = pozirkov_spite_pijace
     
     def v_slovar(self):
         return {
@@ -192,10 +193,17 @@ class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še l
             "pozirkov_spite_pijace": self.pozirkov_spite_pijace
         }
     
+def prijatelj_iz_slovarja(slovar):
+    return Prijatelj(
+        slovar["ime"],
+        slovar["e_mail"],
+        slovar["pozirkov_spite_pijace"]
+    )
+    
 class Uporabnik: 
-    def __init__(self, igra=None):
+    def __init__(self, igra=None, prijatelji=set()):
         self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
-        self.prijatelji = set()
+        self.prijatelji = prijatelji
     
     def dodaj_prijatelja(self, prijatelj: Prijatelj):
         self.prijatelji.add(prijatelj)
@@ -208,10 +216,16 @@ class Uporabnik:
             "igra": self.igra.v_slovar(),
             "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji]
         }
+    
+def uporabnik_iz_slovarja(slovar):
+    return Uporabnik(
+        igra_iz_slovarja(slovar["igra"]),
+        [prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]]
+    )
 
 class Stanje:
-    def __init__(self):
-        self.uporabniki = []
+    def __init__(self, uporabniki=[]):
+        self.uporabniki = uporabniki
     
     def dodaj_uporabnika(self, uporabnik: Uporabnik):
         self.uporabniki.append(uporabnik)
@@ -224,3 +238,5 @@ class Stanje:
     def v_datoteko(self, ime_datoteke):
         with open(ime_datoteke, "w") as f:
             json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
+
+##### Dodaj še stanje iz slovarja !!!
