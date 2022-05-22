@@ -4,7 +4,7 @@ import json
 
 POZIREK = "P"
 KOZAREC = "K"
-PIJACE = {"pivo", "cuba-libre", "gin-tonic", "vino"}
+PIJACE = {"nedoločeno", "pivo", "cuba-libre", "gin-tonic", "vino"}
 BARVE = ["modra", "zelena", "rumena", "rdeča"]
 SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC = "X"
 
@@ -49,7 +49,7 @@ class Karta:
             "odprtost": self.ali_je_odprta,
             "vrednost": self.vrednost
         }
-    
+
 def karta_iz_slovarja(slovar):
     return Karta(
         slovar["stevilo"],
@@ -60,7 +60,7 @@ def karta_iz_slovarja(slovar):
 
 
 class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo poskrbela že funkcija prijatelji
-    def __init__(self, ime, pijaca, karte=[], stevilo_spitih=0, stanje_v_kozarcu=10):
+    def __init__(self, ime, pijaca="nedoločeno", karte=[], stevilo_spitih=0, stanje_v_kozarcu=10):
         self.ime = ime
         self.pijaca = pijaca
         self.karte = karte
@@ -135,8 +135,8 @@ class Igra:
         self.prva_zaprta_karta = ([n - 1, 0] if prva_zaprta_karta == None else prva_zaprta_karta) # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
         self.vse_karte_igralcev = set() # To se naredi da se ob tem ko nardis igro naredi
 
-    def dodaj_igralca(self, ime):
-        self.igralci.append(Igralec(ime))
+    def dodaj_igralca(self, ime, pijaca):
+        self.igralci.append(Igralec(ime, pijaca))
 
     def odpri_naslednjo_karto(self):
         """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
@@ -239,4 +239,11 @@ class Stanje:
         with open(ime_datoteke, "w") as f:
             json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
 
-##### Dodaj še stanje iz slovarja !!!
+def stanje_iz_slovarja(slovar):
+    return Stanje(
+        [uporabnik_iz_slovarja(sl) for sl in slovar["uporabniki"]]
+    )
+
+def stanje_iz_datoteke(ime_datoteke):
+    with open(ime_datoteke, "r") as f:
+        return stanje_iz_slovarja(json.load(f))
