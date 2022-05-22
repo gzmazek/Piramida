@@ -128,15 +128,15 @@ def igralec_iz_slovarja(slovar):
     )
     
 class Igra:
-    def __init__(self, n=4, igralci=[], piramida=0, prva_zaprta_karta=None):
+    def __init__(self, n=4, igralci={}, piramida=0, prva_zaprta_karta=None):
         self.velikost_piramide = n
         self.igralci = igralci
         self.piramida = (sestavi_piramido(n) if piramida == 0 else piramida)
         self.prva_zaprta_karta = ([n - 1, 0] if prva_zaprta_karta == None else prva_zaprta_karta) # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
         self.vse_karte_igralcev = set() # To se naredi da se ob tem ko nardis igro naredi
 
-    def dodaj_igralca(self, ime, pijaca):
-        self.igralci.append(Igralec(ime, pijaca))
+    def dodaj_igralca(self, ime: str, pijaca):
+        self.igralci[ime] = Igralec(ime, pijaca)
 
     def odpri_naslednjo_karto(self):
         """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
@@ -152,7 +152,7 @@ class Igra:
 
     def preveri_kdo_dobi_pozirke(self, karta: Karta):
         """Funkcija vzame karto in vrne slovar z elementi {Igralec: požirki}. Tukaj ni važno, ali se karta deli ali pije."""
-        return {igralec: koliko_pozirkov(igralec, karta) for igralec in self.igralci}
+        return {ime: koliko_pozirkov(self.igraleci[ime], karta) for ime in self.igralci.keys()} #Če kaj ne dela je mogoče to; ni preverjeno
     
     def naredi_potezo(self): # Ta je verjetno malo manj uporabna
         """Funkcija odpre naslednjo karto in vsem doda koliko mora narediti vsak požirkov"""
@@ -160,14 +160,12 @@ class Igra:
         slovar_pozirkov = self.preveri_kdo_dobi_pozirke(self.odpri_naslednjo_karto())
         return (ali_se_deli, slovar_pozirkov)
     
-    def podeli_pozirke(self, igralec_ki_dobi: Igralec, st_pozirkov: int):
-        for i in self.igralci:
-            if i == igralec_ki_dobi:
-                i.dodeli_pozirke(st_pozirkov)
+    def podeli_pozirke(self, ime, st_pozirkov: int):
+        self.igralci[ime].dodeli_pozirke(st_pozirkov)
     
     def v_slovar(self):
         return {
-            "igralci": [igralec.v_slovar() for igralec in self.igralci],
+            "igralci": {ime: self.igralci[ime].v_slovar() for ime in self.igralci.keys()},
             "piramida": list(map(lambda seznam: list(map(lambda karta: karta.v_slovar(), seznam)), self.piramida)), # Ta stvar je zlo grda poglej ce sploh dela pa jo polesaj
             "prva_zaprta_karta": self.prva_zaprta_karta, # sicer ni potrebno ker se lahko izrazi
         }
@@ -175,7 +173,7 @@ class Igra:
 def igra_iz_slovarja(slovar: dict): # To stvar boš moral še zelo preveriti ker ne vem če dela prav!!
     return Igra(
         len(slovar["piramida"]),
-        [igralec_iz_slovarja(sl) for sl in slovar["igralci"]],
+        {igralec_iz_slovarja(sl).ime: igralec_iz_slovarja(sl) for sl in slovar["igralci"]},
         [list(map(karta_iz_slovarja, vrstica)) for vrstica in slovar["piramida"]],
         slovar["prva_zaprta_karta"]
     )
