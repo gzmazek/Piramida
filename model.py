@@ -31,7 +31,6 @@ class Karta:
     def __repr__(self) -> str:
         return f"{self.stevilo}"
 
-
     def __eq__(self, other):
         return self.stevilo == other.stevilo
 
@@ -199,7 +198,9 @@ def prijatelj_iz_slovarja(slovar):
     )
     
 class Uporabnik: 
-    def __init__(self, igra=None, prijatelji=set()):
+    def __init__(self, uporabisko_ime, geslo, igra=None, prijatelji=set()):
+        self.uporabnisko_ime = uporabisko_ime
+        self.geslo = geslo
         self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
         self.prijatelji = prijatelji
     
@@ -211,26 +212,30 @@ class Uporabnik:
 
     def v_slovar(self):
         return {
+            "uporabnisko_ime": self.uporabnisko_ime,
+            "geslo": self.geslo,
             "igra": self.igra.v_slovar(),
             "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji]
         }
     
 def uporabnik_iz_slovarja(slovar):
     return Uporabnik(
+        slovar["uporabnisko_ime"],
+        slovar["geslo"],
         igra_iz_slovarja(slovar["igra"]),
         [prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]]
     )
 
 class Stanje:
-    def __init__(self, uporabniki=[]):
+    def __init__(self, uporabniki={}):
         self.uporabniki = uporabniki
     
     def dodaj_uporabnika(self, uporabnik: Uporabnik):
-        self.uporabniki.append(uporabnik)
+        self.uporabniki[uporabnik.uporabnisko_ime] = uporabnik
     
     def v_slovar(self):
         return {
-            "uporabniki": [uporabnik.v_slovar() for uporabnik in self.uporabniki]
+            "uporabniki": [uporabnik.v_slovar() for uporabnik in self.uporabniki.values()]
         }
 
     def v_datoteko(self, ime_datoteke):
@@ -239,7 +244,7 @@ class Stanje:
 
 def stanje_iz_slovarja(slovar):
     return Stanje(
-        [uporabnik_iz_slovarja(sl) for sl in slovar["uporabniki"]]
+        {uporabnik_iz_slovarja(uporabnik).uporabnisko_ime: uporabnik_iz_slovarja(uporabnik) for uporabnik in slovar["uporabniki"]}
     )
 
 def stanje_iz_datoteke(ime_datoteke):
