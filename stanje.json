@@ -2,148 +2,20 @@
   "uporabniki": [
     {
       "uporabnisko_ime": "gal",
-      "geslo": "geslo",
-      "igra": {
-        "igralci": {},
-        "piramida": [
-          [
-            {
-              "stevilo": 6,
-              "barva": "modra",
-              "odprtost": false,
-              "vrednost": 2
-            },
-            {
-              "stevilo": 0,
-              "barva": "zelena",
-              "odprtost": false,
-              "vrednost": 2
-            }
-          ],
-          [
-            {
-              "stevilo": 2,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 8,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 6,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 6,
-              "barva": "rumena",
-              "odprtost": false,
-              "vrednost": 1
-            }
-          ]
-        ],
-        "prva_zaprta_karta": [
-          1,
-          0
-        ]
-      },
+      "geslo": "mojegeslo",
+      "igra": 0,
       "prijatelji": []
     },
     {
-      "uporabnisko_ime": "masa",
-      "geslo": "kaktus",
-      "igra": {
-        "igralci": {},
-        "piramida": [
-          [
-            {
-              "stevilo": 5,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 3
-            },
-            {
-              "stevilo": 2,
-              "barva": "modra",
-              "odprtost": false,
-              "vrednost": 3
-            }
-          ],
-          [
-            {
-              "stevilo": 3,
-              "barva": "zelena",
-              "odprtost": false,
-              "vrednost": 2
-            },
-            {
-              "stevilo": 8,
-              "barva": "rumena",
-              "odprtost": false,
-              "vrednost": 2
-            },
-            {
-              "stevilo": 4,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 2
-            },
-            {
-              "stevilo": 2,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 2
-            }
-          ],
-          [
-            {
-              "stevilo": 0,
-              "barva": "zelena",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 1,
-              "barva": "rumena",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 7,
-              "barva": "rdeča",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 8,
-              "barva": "rumena",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 1,
-              "barva": "modra",
-              "odprtost": false,
-              "vrednost": 1
-            },
-            {
-              "stevilo": 5,
-              "barva": "modra",
-              "odprtost": false,
-              "vrednost": 1
-            }
-          ]
-        ],
-        "prva_zaprta_karta": [
-          2,
-          0
-        ]
-      },
+      "uporabnisko_ime": "jaka",
+      "geslo": "jaka",
+      "igra": 0,
+      "prijatelji": []
+    },
+    {
+      "uporabnisko_ime": "vid",
+      "geslo": "vid",
+      "igra": 0,
       "prijatelji": []
     }
   ]

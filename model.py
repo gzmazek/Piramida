@@ -175,7 +175,7 @@ def igra_iz_slovarja(slovar: dict): # To stvar boš moral še zelo preveriti ker
         {igralec_iz_slovarja(sl).ime: igralec_iz_slovarja(sl) for sl in slovar["igralci"]},
         [list(map(karta_iz_slovarja, vrstica)) for vrstica in slovar["piramida"]],
         slovar["prva_zaprta_karta"]
-    )
+    ) if slovar else 0 # To sem zdaj dodaj nazadnje
 
 class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
     def __init__(self, ime, e_mail, pozirkov_spite_pijace={}):
@@ -198,7 +198,7 @@ def prijatelj_iz_slovarja(slovar):
     )
     
 class Uporabnik: 
-    def __init__(self, uporabisko_ime, geslo, igra=None, prijatelji=set()):
+    def __init__(self, uporabisko_ime, geslo, igra=0, prijatelji=set()):
         self.uporabnisko_ime = uporabisko_ime
         self.geslo = geslo
         self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
@@ -214,7 +214,7 @@ class Uporabnik:
         return {
             "uporabnisko_ime": self.uporabnisko_ime,
             "geslo": self.geslo,
-            "igra": self.igra.v_slovar(),
+            "igra": self.igra.v_slovar() if self.igra else 0,
             "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji]
         }
     
@@ -226,9 +226,9 @@ def uporabnik_iz_slovarja(slovar):
         [prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]]
     )
 
-class Stanje:
+class Stanje: 
     def __init__(self, uporabniki={}):
-        self.uporabniki = uporabniki
+        self.uporabniki = uporabniki # Uporabniki so podani v slovarju uporabnisko ime: uporabnik
     
     def dodaj_uporabnika(self, uporabnik: Uporabnik):
         self.uporabniki[uporabnik.uporabnisko_ime] = uporabnik
