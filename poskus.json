@@ -1,0 +1,28 @@
+{
+  "uporabniki": [
+    {
+      "uporabnisko_ime": "gal",
+      "geslo": "mojegeslo",
+      "igra": 0,
+      "prijatelji": [
+        {
+          "ime": "Gal",
+          "e_mail": "mail@mail.com",
+          "pozirkov_spite_pijace": {}
+        }
+      ]
+    },
+    {
+      "uporabnisko_ime": "jaka",
+      "geslo": "jaka",
+      "igra": 0,
+      "prijatelji": []
+    },
+    {
+      "uporabnisko_ime": "vid",
+      "geslo": "vid",
+      "igra": 0,
+      "prijatelji": []
+    }
+  ]
+}

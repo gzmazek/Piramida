@@ -198,14 +198,14 @@ def prijatelj_iz_slovarja(slovar):
     )
     
 class Uporabnik: 
-    def __init__(self, uporabisko_ime, geslo, igra=0, prijatelji=set()):
+    def __init__(self, uporabisko_ime, geslo, igra=0, prijatelji=dict()):
         self.uporabnisko_ime = uporabisko_ime
         self.geslo = geslo
         self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
         self.prijatelji = prijatelji
     
     def dodaj_prijatelja(self, prijatelj: Prijatelj):
-        self.prijatelji.add(prijatelj)
+        self.prijatelji[prijatelj.ime] = prijatelj
 
     def odstrani_prijatelja(self, prijatelj):
         self.prijatelji.remove(prijatelj)
@@ -215,7 +215,7 @@ class Uporabnik:
             "uporabnisko_ime": self.uporabnisko_ime,
             "geslo": self.geslo,
             "igra": self.igra.v_slovar() if self.igra else 0,
-            "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji]
+            "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji.values()]
         }
     
 def uporabnik_iz_slovarja(slovar):
@@ -223,7 +223,7 @@ def uporabnik_iz_slovarja(slovar):
         slovar["uporabnisko_ime"],
         slovar["geslo"],
         igra_iz_slovarja(slovar["igra"]),
-        [prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]]
+        {prijatelj_iz_slovarja(prijatelj).ime: prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]}
     )
 
 class Stanje: 
