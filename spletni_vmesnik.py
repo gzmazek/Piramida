@@ -60,8 +60,9 @@ def doma_get():
 
 @bottle.get('/moji_prijatelji/')
 def moji_prijatelji_get():
+    igra = trenutni_uporabnik().igra
     prijatelji = trenutni_uporabnik().prijatelji
-    return bottle.template('moji_prijatelji.html', prijatelji=prijatelji)
+    return bottle.template('moji_prijatelji.html', prijatelji=prijatelji, igra=igra)
     
 
 bottle.run(reloader=True, debug=True)
