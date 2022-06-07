@@ -198,32 +198,86 @@ def prijatelj_iz_slovarja(slovar):
     )
     
 class Uporabnik: 
-    def __init__(self, uporabisko_ime, geslo, igra=0, prijatelji=dict()):
-        self.uporabnisko_ime = uporabisko_ime
+    def __init__(self, uporabnisko_ime, geslo, email, vzdevek=None, igra=0, prijatelji=set()):
+        self.uporabnisko_ime = uporabnisko_ime
         self.geslo = geslo
+        self.email = email
+        self.vzdevek = vzdevek if vzdevek is not None else uporabnisko_ime
         self.igra = igra # Igralec ima lahko samo eno on-going igro, bilo bi neuporabno in nesmiselno jih imeti več
         self.prijatelji = prijatelji
     
-    def dodaj_prijatelja(self, prijatelj: Prijatelj):
-        self.prijatelji[prijatelj.ime] = prijatelj
+    def dodaj_prijatelja(self, prijatelj):
+        self.prijatelji.add(prijatelj.uporabnisko_ime)
 
     def odstrani_prijatelja(self, prijatelj):
-        self.prijatelji.remove(prijatelj)
+        self.prijatelji.remove(prijatelj.uporabnisko_ime)
 
     def v_slovar(self):
         return {
             "uporabnisko_ime": self.uporabnisko_ime,
             "geslo": self.geslo,
+            "email": self.email,
+            "vzdevek": self.vzdevek,
             "igra": self.igra.v_slovar() if self.igra else 0,
-            "prijatelji": [prijatelj.v_slovar() for prijatelj in self.prijatelji.values()]
+            "prijatelji": list(self.prijatelji)
         }
+    
+    def v_svojo_datoteko(self):
+        with open(f"./uporabniki/{self.uporabnisko_ime}.json", "w") as f:
+            json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
     
 def uporabnik_iz_slovarja(slovar):
     return Uporabnik(
         slovar["uporabnisko_ime"],
         slovar["geslo"],
+        slovar["email"],
+        slovar["vzdevek"],
         igra_iz_slovarja(slovar["igra"]),
-        {prijatelj_iz_slovarja(prijatelj).ime: prijatelj_iz_slovarja(prijatelj) for prijatelj in slovar["prijatelji"]}
+        set(slovar["prijatelji"])
+    )
+
+def uporabnik_iz_svoje_datoteke(uporabnisko_ime):
+    with open(f"./uporabniki/{uporabnisko_ime}.json", "r") as f:
+        return uporabnik_iz_slovarja(json.load(f))
+
+class UporabnikVStanju:
+    def __init__(self, uporabnisko_ime, geslo, email, vzdevek, ali_zdaj_igra=False, prijatelji_in_deljenje=dict(), prosnje=[]):
+        self.uporabnisko_ime = uporabnisko_ime
+        self.geslo = geslo
+        self.email = email
+        self.vzdevek = vzdevek
+        self.ali_zdaj_igra = ali_zdaj_igra
+        self.prijatelji_in_deljenje = prijatelji_in_deljenje
+        self.prosnje = prosnje
+    
+    def v_slovar(self):
+        return {
+            "uporabnisko_ime": self.uporabnisko_ime,
+            "geslo": self.geslo,
+            "email": self.email,
+            "vzdevek": self.vzdevek,
+            "ali_zdaj_igra": self.ali_zdaj_igra,
+            "prijatelji_in_deljenje": self.prijatelji_in_deljenje,
+            "prosnje": self.prosnje
+        }
+
+def uporabnikvstanju_iz_slovarja(slovar):
+    return UporabnikVStanju(
+        slovar["uporabnisko_ime"],
+        slovar["geslo"],
+        slovar["email"],
+        slovar["vzdevek"],
+        slovar["ali_zdaj_igra"],
+        slovar["prijatelji_in_deljenje"],
+        slovar["prosnje"]
+    )
+
+def uporabnik_v_uporabnikvstanju(uporabnik: Uporabnik): #Samo za dodajanje novega uporabnika
+    return UporabnikVStanju(
+        uporabnik.uporabnisko_ime,
+        uporabnik.geslo,
+        uporabnik.email,
+        uporabnik.vzdevek
     )
 
 class Stanje: 
@@ -231,7 +285,8 @@ class Stanje:
         self.uporabniki = uporabniki # Uporabniki so podani v slovarju uporabnisko ime: uporabnik
     
     def dodaj_uporabnika(self, uporabnik: Uporabnik):
-        self.uporabniki[uporabnik.uporabnisko_ime] = uporabnik
+        uporabnikVStanju = uporabnik_v_uporabnikvstanju(uporabnik)
+        self.uporabniki[uporabnikVStanju.uporabnisko_ime] = uporabnikVStanju
     
     def v_slovar(self):
         return {
@@ -244,7 +299,7 @@ class Stanje:
 
 def stanje_iz_slovarja(slovar):
     return Stanje(
-        {uporabnik_iz_slovarja(uporabnik).uporabnisko_ime: uporabnik_iz_slovarja(uporabnik) for uporabnik in slovar["uporabniki"]}
+        {uporabnikvstanju_iz_slovarja(uporabnik).uporabnisko_ime: uporabnikvstanju_iz_slovarja(uporabnik) for uporabnik in slovar["uporabniki"]}
     )
 
 def stanje_iz_datoteke(ime_datoteke):

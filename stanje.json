@@ -3,20 +3,20 @@
     {
       "uporabnisko_ime": "gal",
       "geslo": "mojegeslo",
-      "igra": 0,
-      "prijatelji": []
+      "email": "moj_mail@mail.com",
+      "vzdevek": "Gal",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
     },
     {
-      "uporabnisko_ime": "jaka",
-      "geslo": "jaka",
-      "igra": 0,
-      "prijatelji": []
-    },
-    {
-      "uporabnisko_ime": "vid",
-      "geslo": "vid",
-      "igra": 0,
-      "prijatelji": []
+      "uporabnisko_ime": "masa",
+      "geslo": "wyjxus-fempy1-zeXzez",
+      "email": "masa@masa.com",
+      "vzdevek": "MaÅ¡a",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
     }
   ]
 }
