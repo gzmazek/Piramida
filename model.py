@@ -7,6 +7,7 @@ KOZAREC = "K"
 PIJACE = {"nedoločeno", "pivo", "cuba-libre", "gin-tonic", "vino"}
 BARVE = ["modra", "zelena", "rumena", "rdeča"]
 SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC = "X"
+CAKAJOCA_PROSNJA = "?"
 
 ############################# SPLOŠNE FUNKCIJE #############################
 def sestavi_piramido(n):
@@ -223,7 +224,7 @@ class Uporabnik:
         }
     
     def v_svojo_datoteko(self):
-        with open(f"./uporabniki/{self.uporabnisko_ime}.json", "w") as f:
+        with open(f"./uporabniki/{self.uporabnisko_ime}.json", "w", encoding='utf-8') as f:
             json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
     
 def uporabnik_iz_slovarja(slovar):
@@ -237,7 +238,7 @@ def uporabnik_iz_slovarja(slovar):
     )
 
 def uporabnik_iz_svoje_datoteke(uporabnisko_ime):
-    with open(f"./uporabniki/{uporabnisko_ime}.json", "r") as f:
+    with open(f"./uporabniki/{uporabnisko_ime}.json", "r", encoding='utf-8') as f:
         return uporabnik_iz_slovarja(json.load(f))
 
 class UporabnikVStanju:
@@ -249,6 +250,16 @@ class UporabnikVStanju:
         self.ali_zdaj_igra = ali_zdaj_igra
         self.prijatelji_in_deljenje = prijatelji_in_deljenje
         self.prosnje = prosnje
+    
+    def dodaj_prosnjo(self, uporabnisko_ime):
+        self.prosnje.append(uporabnisko_ime)
+    
+    def izbrisi_prosnjo(self, uporabnisko_ime):
+        self.prosnje.remove(uporabnisko_ime)
+    
+    def izbrisi_prosnjo_in_dodaj_prijatelja(self, uporabnisko_ime):
+        self.izbrisi_prosnjo(uporabnisko_ime)
+        self.prijatelji_in_deljenje[uporabnisko_ime] = [0, 0]
     
     def v_slovar(self):
         return {
@@ -294,7 +305,7 @@ class Stanje:
         }
 
     def v_datoteko(self, ime_datoteke):
-        with open(ime_datoteke, "w") as f:
+        with open(ime_datoteke, "w", encoding='utf-8') as f:
             json.dump(self.v_slovar(), f, ensure_ascii=False, indent=2)
 
 def stanje_iz_slovarja(slovar):
@@ -303,5 +314,5 @@ def stanje_iz_slovarja(slovar):
     )
 
 def stanje_iz_datoteke(ime_datoteke):
-    with open(ime_datoteke, "r") as f:
+    with open(ime_datoteke, "r", encoding='utf-8') as f:
         return stanje_iz_slovarja(json.load(f))

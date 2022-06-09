@@ -1,7 +1,8 @@
 import time
+from turtle import pen
 import bottle
 import model
-from model import Stanje, Uporabnik, Prijatelj, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
+from model import CAKAJOCA_PROSNJA, Stanje, Uporabnik, Prijatelj, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
 
 DATOTEKA_S_STANJEM = "stanje.json"
 PISKOTEK_PRIJAVA = "prijavljen"
@@ -70,9 +71,13 @@ def doma_get():
 
 @bottle.get('/moji_prijatelji/')
 def moji_prijatelji_get():
-    igra = trenutni_uporabnik().igra
-    prijatelji = trenutni_uporabnik().prijatelji
-    return bottle.template('moji_prijatelji.html', prijatelji=prijatelji, igra=igra)
+    uporabnik = trenutni_uporabnik()
+    uporabnisko_ime = uporabnik.uporabnisko_ime
+    igra = uporabnik.igra
+    prijatelji = uporabnik.prijatelji
+    stanje = pridobi_stanje()
+    pending_prosnje = [par[0] for par in stanje.uporabniki[uporabnisko_ime].prijatelji_in_deljenje.items() if par[1] == CAKAJOCA_PROSNJA] 
+    prosnje = stanje.uporabniki[uporabnisko_ime].prosnje
+    return bottle.template('moji_prijatelji.html', prijatelji=prijatelji, igra=igra, pending_prosnje=pending_prosnje, prosnje=prosnje)
     
-
 bottle.run(reloader=True, debug=True)
