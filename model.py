@@ -177,26 +177,6 @@ def igra_iz_slovarja(slovar: dict): # To stvar boš moral še zelo preveriti ker
         [list(map(karta_iz_slovarja, vrstica)) for vrstica in slovar["piramida"]],
         slovar["prva_zaprta_karta"]
     ) if slovar else 0 # To sem zdaj dodaj nazadnje
-
-class Prijatelj: # Ta prijatelj se potem spremeni v Igralec, pri njem boš še lahko dodal koliko je spil v življenju, kaj naraje pije, komu je največ podelil...
-    def __init__(self, ime, e_mail, pozirkov_spite_pijace={}):
-        self.ime = ime
-        self.e_mail = e_mail
-        self.pozirkov_spite_pijace = pozirkov_spite_pijace
-    
-    def v_slovar(self):
-        return {
-            "ime": self.ime,
-            "e_mail": self.e_mail,
-            "pozirkov_spite_pijace": self.pozirkov_spite_pijace
-        }
-    
-def prijatelj_iz_slovarja(slovar):
-    return Prijatelj(
-        slovar["ime"],
-        slovar["e_mail"],
-        slovar["pozirkov_spite_pijace"]
-    )
     
 class Uporabnik: 
     def __init__(self, uporabnisko_ime, geslo, email, vzdevek=None, igra=0, prijatelji=set()):
@@ -260,6 +240,9 @@ class UporabnikVStanju:
     def izbrisi_prosnjo_in_dodaj_prijatelja(self, uporabnisko_ime):
         self.izbrisi_prosnjo(uporabnisko_ime)
         self.prijatelji_in_deljenje[uporabnisko_ime] = [0, 0]
+    
+    def dodaj_prosnjo_med_prijatelje(self, uporabnisko_ime):
+        self.prijatelji_in_deljenje[uporabnisko_ime] = CAKAJOCA_PROSNJA
     
     def v_slovar(self):
         return {

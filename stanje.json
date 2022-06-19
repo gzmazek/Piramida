@@ -6,8 +6,10 @@
       "email": "moj_mail@mail.com",
       "vzdevek": "Gal",
       "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {},
-      "prosnje": ["masa"]
+      "prijatelji_in_deljenje": {
+        "masa": "?"
+      },
+      "prosnje": []      
     },
     {
       "uporabnisko_ime": "masa",
@@ -15,8 +17,26 @@
       "email": "masa@masa.com",
       "vzdevek": "Masa",
       "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "gal": "?",
+        "lana": "?",
+        "masa": "?"
+      },
+      "prosnje": [
+        "gal",
+        "masa"
+      ]
+    },
+    {
+      "uporabnisko_ime": "lana",
+      "geslo": "lana",
+      "email": "lana@lana.si",
+      "vzdevek": "Lana",
+      "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
-      "prosnje": []
+      "prosnje": [
+        "masa"
+      ]
     }
   ]
 }

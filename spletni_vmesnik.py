@@ -1,8 +1,9 @@
 import time
 from turtle import pen
 import bottle
+from django.shortcuts import redirect
 import model
-from model import CAKAJOCA_PROSNJA, Stanje, Uporabnik, Prijatelj, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
+from model import CAKAJOCA_PROSNJA, Stanje, Uporabnik, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
 
 DATOTEKA_S_STANJEM = "stanje.json"
 PISKOTEK_PRIJAVA = "prijavljen"
@@ -74,10 +75,20 @@ def moji_prijatelji_get():
     uporabnik = trenutni_uporabnik()
     uporabnisko_ime = uporabnik.uporabnisko_ime
     igra = uporabnik.igra
-    prijatelji = uporabnik.prijatelji
     stanje = pridobi_stanje()
+    prijatelji = [par[0] for par in stanje.uporabniki[uporabnisko_ime].prijatelji_in_deljenje.items() if par[1] != CAKAJOCA_PROSNJA] # Tu lahko ful polešaš še s filter..., da ni dveh istih vrstic
     pending_prosnje = [par[0] for par in stanje.uporabniki[uporabnisko_ime].prijatelji_in_deljenje.items() if par[1] == CAKAJOCA_PROSNJA] 
     prosnje = stanje.uporabniki[uporabnisko_ime].prosnje
     return bottle.template('moji_prijatelji.html', prijatelji=prijatelji, igra=igra, pending_prosnje=pending_prosnje, prosnje=prosnje)
-    
+
+@bottle.post('/poslji_prosnjo/')
+def poslji_prosnjo_post():
+    uporabnisko_ime = bottle.request.forms["uporabnisko_ime"]
+    if uporabnisko_ime in pridobi_stanje().uporabniki.keys():
+        stanje = pridobi_stanje()
+        stanje.uporabniki[uporabnisko_ime].dodaj_prosnjo(trenutni_uporabnik().uporabnisko_ime)
+        stanje.uporabniki[trenutni_uporabnik().uporabnisko_ime].dodaj_prosnjo_med_prijatelje(uporabnisko_ime)
+        shrani_stanje(stanje)
+    bottle.redirect('/moji_prijatelji/')
+
 bottle.run(reloader=True, debug=True)

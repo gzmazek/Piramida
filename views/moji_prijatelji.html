@@ -1,5 +1,45 @@
 % rebase('base_profil.html', trenutno="Prijatelji", igra=igra)
 
+
+
+<div class="card p-3 bg-light">
+  <div class="card-body">
+    <p>Dodaj novega prijatelja (vpiši uporabniško ime prijatelja).</p>
+    <p>Če se uporabnik ne pojavi med čakajočimi prošnjami, potem ta uporabnik ne obstaja.</p>
+    <form action="/poslji_prosnjo/" method="post">
+      <input type="text" name="uporabnisko_ime">
+      <button type="submit" class="btn btn-warning">Dodaj prijatelja</button>  
+    </form>
+  </div>
+</div>
+
+% if pending_prosnje:
+%   for poslana_prosnja in pending_prosnje:
+
+<div class="card">
+  <div class="card-header">
+    Čakajoča prošnja
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Osebi {{poslana_prosnja}} si poslal prošnjo.</h5>
+    <div class="row">
+      <div class="col">
+        <p class="card-text">Tvoj bodoči prijatelj še ni utegnil sprejeti tvoje prošnje.</p>
+      </div>
+       <div class="col">
+         <div class="row d-grid gap-2">
+          <form action="/izbrisi_prosnjo_{{poslana_prosnja}}/" method="post">
+            <button type="submit" class="btn btn-danger">Izbriši prošnjo</button>
+          </form>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+%   end
+% end
+
 % if prosnje:
 %   for mogoce_prijatelj in prosnje:
 
@@ -9,10 +49,55 @@
     </div>
     <div class="card-body">
       <h5 class="card-title">{{mogoce_prijatelj}} te prosi za prijateljstvo</h5>
-      <p class="card-text">Če pritisneš sprejmi, se bo uporabnik dodal med prijatelje, če pa ga zavrneš, mu lahko le pošlješ prošnjo in ne moreš več sprejeti te.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <div class="row">
+        <div class="col">
+          <p class="card-text">Če pritisneš sprejmi, se bo uporabnik dodal med prijatelje, če pa ga zavrneš, mu lahko le pošlješ prošnjo in ne moreš več sprejeti te.</p>
+          <p class="card-text">Če prrijatelja sprejmeš mu s tem zaupaš, da te bo dodajal v igre, ko boš ti res prisoten (kasneje si boš lahko tudi nastavil, katerim prijateljem dovoliš upravljanje s tvojim profilom)</p>
+        </div>
+         <div class="col">
+           <div class="row d-grid gap-2">
+            <form action="/sprejmi_{{mogoce_prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-success">Dodaj prijatelja</button>
+            </form>
+            <form action="/zavrni_{{mogoce_prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-danger">Zavrni prijatelja</button>
+            </form>
+            </div>
+         </div>
+      </div>
     </div>
-  </div>
+</div>
+
+%   end
+% end
+
+% if prosnje:
+%   for mogoce_prijatelj in prosnje:
+
+<div class="card">
+    <div class="card-header">
+      Prošnja za prijateljstvo
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{mogoce_prijatelj}} te prosi za prijateljstvo</h5>
+      <div class="row">
+        <div class="col">
+          <p class="card-text">Če pritisneš sprejmi, se bo uporabnik dodal med prijatelje, če pa ga zavrneš, mu lahko le pošlješ prošnjo in ne moreš več sprejeti te.</p>
+          <p class="card-text">Če prrijatelja sprejmeš mu s tem zaupaš, da te bo dodajal v igre, ko boš ti res prisoten (kasneje si boš lahko tudi nastavil, katerim prijateljem dovoliš upravljanje s tvojim profilom)</p>
+        </div>
+         <div class="col">
+           <div class="row d-grid gap-2">
+            <form action="/sprejmi_{{mogoce_prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-success">Dodaj prijatelja</button>
+            </form>
+            <form action="/zavrni_{{mogoce_prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-danger">Zavrni prijatelja</button>
+            </form>
+            </div>
+         </div>
+      </div>
+    </div>
+</div>
 
 %   end
 % end
