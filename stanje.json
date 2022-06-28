@@ -7,9 +7,9 @@
       "vzdevek": "Gal",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "masa": "?"
+        "vid": "?"
       },
-      "prosnje": []      
+      "prosnje": []
     },
     {
       "uporabnisko_ime": "masa",
@@ -17,15 +17,8 @@
       "email": "masa@masa.com",
       "vzdevek": "Masa",
       "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "gal": "?",
-        "lana": "?",
-        "masa": "?"
-      },
-      "prosnje": [
-        "gal",
-        "masa"
-      ]
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
     },
     {
       "uporabnisko_ime": "lana",
@@ -34,8 +27,19 @@
       "vzdevek": "Lana",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "vid",
+      "geslo": "gidgun-wEfnac-9cicte",
+      "email": "vid@vid.si",
+      "vzdevek": "Vid",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
       "prosnje": [
-        "masa"
+        "gal",
+        "gal",
+        "gal"
       ]
     }
   ]

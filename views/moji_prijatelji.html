@@ -5,11 +5,15 @@
 <div class="card p-3 bg-light">
   <div class="card-body">
     <p>Dodaj novega prijatelja (vpiši uporabniško ime prijatelja).</p>
-    <p>Če se uporabnik ne pojavi med čakajočimi prošnjami, potem ta uporabnik ne obstaja.</p>
     <form action="/poslji_prosnjo/" method="post">
       <input type="text" name="uporabnisko_ime">
       <button type="submit" class="btn btn-warning">Dodaj prijatelja</button>  
     </form>
+% if napaka == "no-user":
+    <p style="color: red">Ta uporabnik ne obstaja</p>
+% elif napaka == "lonely":
+    <p style="color: red">Prosim, da pivskih iger ne igraš sam s seboj :(</p>
+% end
   </div>
 </div>
 
