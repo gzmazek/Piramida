@@ -92,4 +92,12 @@ def poslji_prosnjo_post():
     else:
         bottle.redirect('/moji_prijatelji/no-user')
 
+@bottle.post('/izbrisi_prosnjo/<poslana_prosnja>')
+def izbrisi_prosnjo_post(poslana_prosnja):
+    stanje = pridobi_stanje()
+    stanje.uporabniki[poslana_prosnja].izbrisi_prosnjo(trenutni_uporabnik().uporabnisko_ime)
+    stanje.uporabniki[trenutni_uporabnik().uporabnisko_ime].prijatelji_in_deljenje.pop(poslana_prosnja)
+    shrani_stanje(stanje)
+    bottle.redirect('/moji_prijatelji/0')
+
 bottle.run(reloader=True, debug=True)

@@ -7,9 +7,12 @@
       "vzdevek": "Gal",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "vid": "?"
+        "vid": "?",
+        "lana": "?"
       },
-      "prosnje": []
+      "prosnje": [
+        "vid"
+      ]
     },
     {
       "uporabnisko_ime": "masa",
@@ -27,7 +30,9 @@
       "vzdevek": "Lana",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
-      "prosnje": []
+      "prosnje": [
+        "gal"
+      ]
     },
     {
       "uporabnisko_ime": "vid",
@@ -37,8 +42,6 @@
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
       "prosnje": [
-        "gal",
-        "gal",
         "gal"
       ]
     }

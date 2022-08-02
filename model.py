@@ -222,7 +222,7 @@ def uporabnik_iz_svoje_datoteke(uporabnisko_ime):
         return uporabnik_iz_slovarja(json.load(f))
 
 class UporabnikVStanju:
-    def __init__(self, uporabnisko_ime, geslo, email, vzdevek, ali_zdaj_igra=False, prijatelji_in_deljenje=dict(), prosnje=[]):
+    def __init__(self, uporabnisko_ime, geslo, email, vzdevek, ali_zdaj_igra=False, prijatelji_in_deljenje=dict(), prosnje=set()):
         self.uporabnisko_ime = uporabnisko_ime
         self.geslo = geslo
         self.email = email
@@ -232,10 +232,10 @@ class UporabnikVStanju:
         self.prosnje = prosnje
     
     def dodaj_prosnjo(self, uporabnisko_ime):
-        self.prosnje.append(uporabnisko_ime)
+        self.prosnje.add(uporabnisko_ime)
     
     def izbrisi_prosnjo(self, uporabnisko_ime):
-        self.prosnje.remove(uporabnisko_ime)
+        self.prosnje.discard(uporabnisko_ime)
     
     def izbrisi_prosnjo_in_dodaj_prijatelja(self, uporabnisko_ime):
         self.izbrisi_prosnjo(uporabnisko_ime)
@@ -252,7 +252,7 @@ class UporabnikVStanju:
             "vzdevek": self.vzdevek,
             "ali_zdaj_igra": self.ali_zdaj_igra,
             "prijatelji_in_deljenje": self.prijatelji_in_deljenje,
-            "prosnje": self.prosnje
+            "prosnje": list(self.prosnje)
         }
 
 def uporabnikvstanju_iz_slovarja(slovar):
@@ -263,7 +263,7 @@ def uporabnikvstanju_iz_slovarja(slovar):
         slovar["vzdevek"],
         slovar["ali_zdaj_igra"],
         slovar["prijatelji_in_deljenje"],
-        slovar["prosnje"]
+        set(slovar["prosnje"])
     )
 
 def uporabnik_v_uporabnikvstanju(uporabnik: Uporabnik): #Samo za dodajanje novega uporabnika
