@@ -3,6 +3,95 @@
   "geslo": "mojegeslo",
   "email": "moj_mail@mail.com",
   "vzdevek": "Gal",
-  "igra": 0,
-  "prijatelji": []
+  "igra": {
+    "igralci": {},
+    "piramida": [
+      [
+        {
+          "stevilo": 4,
+          "barva": "rdeča",
+          "odprtost": false,
+          "vrednost": 3
+        },
+        {
+          "stevilo": 4,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 3
+        }
+      ],
+      [
+        {
+          "stevilo": 1,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 3,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 4,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 9,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 2
+        }
+      ],
+      [
+        {
+          "stevilo": 7,
+          "barva": "rdeča",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 7,
+          "barva": "rdeča",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 8,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 8,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 2,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 6,
+          "barva": "rdeča",
+          "odprtost": false,
+          "vrednost": 1
+        }
+      ]
+    ],
+    "prva_zaprta_karta": [
+      2,
+      0
+    ]
+  },
+  "prijatelji": [
+    "lana",
+    "masa"
+  ]
 }

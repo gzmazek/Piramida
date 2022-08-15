@@ -86,15 +86,15 @@
       <h5 class="card-title">{{prijatelj}}, kasneje daj tukaj vzdevek od prijatlje</h5>
       <div class="row">
         <div class="col">
-          <p class="card-text">Tukaj bodo informacije o prijatlju</p>
+          <p class="card-text">Tukaj bodo informacije o prijatlju, ko klikneš izbriši daj še eno opozorilo</p>
         </div>
          <div class="col">
            <div class="row d-grid gap-2">
-            <form action="/sprejmi_{{prijatelj}}/" method="post">
-              <button type="submit" class="btn btn-success">Dodaj prijatelja</button>
+            <form action="/zacni_igro_{{prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-success">Začni igro</button>
             </form>
-            <form action="/zavrni_{{prijatelj}}/" method="post">
-              <button type="submit" class="btn btn-danger">Zavrni prijatelja</button>
+            <form action="/izbrisi_prijatelja_{{prijatelj}}/" method="post">
+              <button type="submit" class="btn btn-danger">Odstani prijatelja (ne klikovat tega še) / napiši, da se potem izbrišejo vse zgodovine</button>
             </form>
             </div>
          </div>

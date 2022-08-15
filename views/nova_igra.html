@@ -1,0 +1,9 @@
+% rebase('base_profil.html', trenutno="Nova igra", igra = igra)
+
+<p>Začnimo novo igro. Spodaj izberi velikost tvoje naslednje igre. !Pozor! Ko boš stisnis start se bo avtomatsko končala igra, če jo slučajno igraš (to lahko nardiš avtomatsko)</p>
+
+% for i in [3, 4, 5, 6]:
+<form action="/zacni_igro_{{i}}/" method="post">
+    <button type="submit" class="btn btn-danger">Velikost {{i}}</button>
+</form>
+% end

@@ -60,9 +60,8 @@ def karta_iz_slovarja(slovar):
 
 
 class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo poskrbela že funkcija prijatelji
-    def __init__(self, ime, pijaca="nedoločeno", karte=[], stevilo_spitih=0, stanje_v_kozarcu=10):
+    def __init__(self, ime, karte=[], stevilo_spitih=0, stanje_v_kozarcu=10):
         self.ime = ime
-        self.pijaca = pijaca
         self.karte = karte
         self.stevilo_spitih = stevilo_spitih
         self.stanje_v_kozarcu = stanje_v_kozarcu # tukaj lahko kazneje narediš, da je stanje v kozarcu drugačno ampak zelo ni nujno
@@ -112,7 +111,6 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
     def v_slovar(self):
         return {
             "ime": self.ime,
-            "pijaca": self.pijaca,
             "karte": [karte.v_slovar() for karte in self.karte],
             "popito": self.stevilo_spitih,
             "stanje": self.stanje_v_kozarcu
@@ -121,7 +119,6 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
 def igralec_iz_slovarja(slovar):
     return Igralec(
         slovar["ime"],
-        slovar["pijaca"],
         [karta_iz_slovarja(sl) for sl in slovar["karte"]],
         slovar["popito"],
         slovar["stanje"]
@@ -135,8 +132,8 @@ class Igra:
         self.prva_zaprta_karta = ([n - 1, 0] if prva_zaprta_karta == None else prva_zaprta_karta) # Prva zaprta pomeni, da je to karta, ki jo moramo nslednjo odpreti
         self.vse_karte_igralcev = set() # To se naredi da se ob tem ko nardis igro naredi
 
-    def dodaj_igralca(self, ime: str, pijaca):
-        self.igralci[ime] = Igralec(ime, pijaca)
+    def dodaj_igralca(self, ime: str):
+        self.igralci[ime] = Igralec(ime)
 
     def odpri_naslednjo_karto(self):
         """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
@@ -188,10 +185,16 @@ class Uporabnik:
         self.prijatelji = prijatelji
     
     def dodaj_prijatelja(self, prijatelj):
-        self.prijatelji.add(prijatelj.uporabnisko_ime)
+        self.prijatelji.add(prijatelj)
+        return self
 
     def odstrani_prijatelja(self, prijatelj):
-        self.prijatelji.remove(prijatelj.uporabnisko_ime)
+        self.prijatelji.remove(prijatelj)
+        return self
+    
+    def zacni_igro(self, i):
+        self.igra = Igra(i)
+        return self
 
     def v_slovar(self):
         return {
@@ -237,7 +240,7 @@ class UporabnikVStanju:
     def izbrisi_prosnjo(self, uporabnisko_ime):
         self.prosnje.discard(uporabnisko_ime)
     
-    def izbrisi_prosnjo_in_dodaj_prijatelja(self, uporabnisko_ime):
+    def izbrisi_prosnjo_in_dodaj_prijatelja(self, uporabnisko_ime): # to nekaj ni vredu
         self.izbrisi_prosnjo(uporabnisko_ime)
         self.prijatelji_in_deljenje[uporabnisko_ime] = [0, 0]
     
