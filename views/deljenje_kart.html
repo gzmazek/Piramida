@@ -1,0 +1,67 @@
+% rebase('base.html', igralci = igralci)
+
+<h2>Deljenje kart</h2>
+<h4>Vsak igralec dobi po 3 karte, pri prvi ugotavlja barvo karte, ki jo dobi, pri drugi večje/manjše in pri tretji vmes/zunaj.</h4>
+<p>Če so karte enake, žal nimaš sreče.</p>
+
+% for igralec in igralci:
+<h1>{{igralec.ime}}</h1>
+<h3>Požirki: {{igralec.stevilo_spitih}}</h3>
+<div class="row">
+    <div class="col-sm-2">
+    % if len(igralec.karte) > 0:
+       <p>{{igralec.karte[0].stevilo}}, {{igralec.karte[0].barva}}</p>
+    % else:
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Katere barve bo tvoja karta</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          % for barva in ['rdeca', 'zelena', 'modra', 'rumena']:
+          <form action="/ugiba_1_{{igralec.ime}}_{{barva}}" method="post" class="d-flex">
+            <button class="btn btn-danger" type="submit">{{barva}}</button>
+          </form>
+          % end
+        </div>
+      </div>
+    % end
+    </div>
+    <div class="col-sm-2">
+     % if len(igralec.karte) > 1:
+        <p>{{igralec.karte[1].stevilo}}, {{igralec.karte[1].barva}}</p>
+     % else:
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          % for velikost in ['vecje', 'manjse']:
+          <form action="/ugiba_2_{{igralec.ime}}_{{velikost}}" method="post" class="d-flex">
+            <button class="btn btn-danger" type="submit">{{velikost}}</button>
+          </form>
+          % end
+        </div>
+      </div>
+      % end
+    </div>
+    <div class="col-sm-2">
+        % if len(igralec.karte) > 2:
+            <p>{{igralec.karte[2].stevilo}}, {{igralec.karte[2].barva}}</p>
+        % else:
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            % for pozicija in ['vmes', 'zunaj']:
+            <form action="/ugiba_3_{{igralec.ime}}_{{pozicija}}" method="post" class="d-flex">
+                <button class="btn btn-danger" type="submit">{{pozicija}}</button>
+            </form>
+            % end
+          </div>
+        </div>
+      </div>
+      % end
+  </div>
+% end
+
+<form action="/zacetek_igre" method="post" class="d-flex">
+  <button class="btn btn-danger" type="submit">Začni igro</button>
+</form>

@@ -1,0 +1,60 @@
+% rebase('base.html', piramida=piramida, igralci=igralci)
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            % for vrstica in piramida:
+            <div class="row justify-content-center">
+                % for karta in vrstica[:len(vrstica)//2]:
+                %   if karta.ali_je_odprta:
+                <div class="col-1">
+                    {{karta.stevilo}}
+                </div>
+                %   else:
+                <div class="col-1">
+                    X
+                </div>
+                %   end
+                % end
+            </div>
+            % end
+        </div>
+        <div class="col">
+            % for vrstica in piramida:
+            <div class="row justify-content-center">
+                % for karta in vrstica[len(vrstica)//2:]:
+                %   if karta.ali_je_odprta:
+                <div class="col-1">
+                    {{karta.stevilo}}
+                </div>
+                %   else:
+                <div class="col-1">
+                    X
+                </div>
+                %   end
+                % end
+            </div>
+            % end
+        </div>
+    </div>
+</div>
+
+Tu naredi, da je ta gumb samo, če je zadnja karta še odprta, al pa daj ta gumb kor na karto
+<form action="/odpri_naslednjo_karto" method="post" class="d-flex">
+    <button class="btn btn-danger" type="submit">Odpri naslednjo karto</button>
+</form>
+
+<h1>Igralci</h1>
+<div class="container">
+    <div class="row">
+        % for igralec in igralci:
+        <div class="col">
+            {{igralec}}
+            <h2>Karte:</h2>
+        </div>
+        % end
+    </div>
+</div>
+

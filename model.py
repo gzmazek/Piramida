@@ -1,11 +1,12 @@
 from dataclasses import dataclass
+from doctest import ELLIPSIS_MARKER
 import random
 import json 
 
 POZIREK = "P"
 KOZAREC = "K"
 PIJACE = {"nedoločeno", "pivo", "cuba-libre", "gin-tonic", "vino"}
-BARVE = ["modra", "zelena", "rumena", "rdeča"]
+BARVE = ["modra", "zelena", "rumena", "rdeca"]
 SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC = "X"
 CAKAJOCA_PROSNJA = "?"
 
@@ -89,24 +90,28 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
         else:
             self.dodeli_pozirke(self.karte[-1].vrednost) # !!!!! Tukaj namesto tega messega printanja samo das return pa tisto funkcijo s katero sprozis sporocilo
     
-    def ugiba_drugo_karto(self, vecje_manjse: bool):
+    def ugiba_drugo_karto(self, vecje_manjse):
         """Za argument zapiše True, če bo naslednja karta STROGO večja in False drugače. Če se karta ponovi, igralec vedno pije."""
         self.karte.append(Karta(odprtost=True))
-        if self.karte[-1] > self.karte[-2]:
+        je_vecja = self.karte[-1] > self.karte[-2]
+        ugiba_vecje = True if vecje_manjse == "vecje" else False
+        if je_vecja == ugiba_vecje:
             pass
         else:
             self.dodeli_pozirke(self.karte[-1].vrednost)
 
-    def ugiba_tretjo_karto(self, vmes: bool):
+    def ugiba_tretjo_karto(self, vmes_zunaj):
         """Za argument zapiše True, če bo karta točno med obema trenutnima kartama. Ponovno se karta ne sme ponoviti."""
         a = self.karte[0]
         b = self.karte[1]
         self.karte.append(Karta(odprtost=True))
         nova = self.karte[-1]
-        if (a < nova and nova < b) or (b < nova and nova < a):
-            pass
-        else:
+        je_vmes = (a < nova and nova < b) or (b < nova and nova < a)
+        ugiba_vmes = True if vmes_zunaj == "vmes" else False
+        if nova == a or nova == b or je_vmes != ugiba_vmes:
             self.dodeli_pozirke(self.karte[-1].vrednost)
+        else:
+            pass
         
     def v_slovar(self):
         return {
@@ -134,6 +139,9 @@ class Igra:
 
     def dodaj_igralca(self, ime: str):
         self.igralci[ime] = Igralec(ime)
+    
+    def izbrisi_igralca(self, ime : str):
+        self.igralci.pop(ime)
 
     def odpri_naslednjo_karto(self):
         """Funkcija odpre nasledno karto, spremeni self.prva_zaprta_karta in vrne karto, ki smo jo odprli."""
@@ -160,6 +168,14 @@ class Igra:
     def podeli_pozirke(self, ime, st_pozirkov: int):
         self.igralci[ime].dodeli_pozirke(st_pozirkov)
     
+    def ali_se_pije(self):
+        """Funkcija vrne True, če je naslednja karta za odpret pri pitju in ne deljenju"""
+        vrstica = self.prva_zaprta_karta[0] + 1
+        stolpec = self.prva_zaprta_karta[1] + 1
+        if stolpec > vrstica:
+            return False
+        return True
+    
     def v_slovar(self):
         return {
             "igralci": {ime: self.igralci[ime].v_slovar() for ime in self.igralci.keys()},
@@ -170,7 +186,7 @@ class Igra:
 def igra_iz_slovarja(slovar: dict): # To stvar boš moral še zelo preveriti ker ne vem če dela prav!!
     return Igra(
         len(slovar["piramida"]),
-        {igralec_iz_slovarja(sl).ime: igralec_iz_slovarja(sl) for sl in slovar["igralci"]},
+        {igralec_iz_slovarja(sl).ime: igralec_iz_slovarja(sl) for sl in slovar["igralci"].values()},
         [list(map(karta_iz_slovarja, vrstica)) for vrstica in slovar["piramida"]],
         slovar["prva_zaprta_karta"]
     ) if slovar else 0 # To sem zdaj dodaj nazadnje

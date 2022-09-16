@@ -140,13 +140,61 @@ def zacni_igro_i(i):
     velikost = int(i) # tu lahko daš da v naslovu zahteva int
     uporabnik.zacni_igro(velikost)
     shrani_uporabnika(uporabnik)
-    dodaj_prijatelja(uporabnik.uporabnisko_ime)
+    dodaj_odstrani_prijatelja(uporabnik.uporabnisko_ime)
     
-@bottle.post('/dodaj_prijatelja_<prijatelj>')
-def dodaj_prijatelja(prijatelj):
+@bottle.post('/dodaj_odstrani_prijatelja_<prijatelj>')
+def dodaj_odstrani_prijatelja(prijatelj):
     uporabnik = trenutni_uporabnik()
-    izbrani_igralci = ["ME"]
-    return bottle.template("nova_igra_igralci", izbrani_igralci = izbrani_igralci)
+    izbrani_igralci = uporabnik.igra.igralci
+    if prijatelj in izbrani_igralci:
+        uporabnik.igra.izbrisi_igralca(prijatelj)
+    else:
+        uporabnik.igra.dodaj_igralca(prijatelj)
+    shrani_uporabnika(uporabnik)
+    bottle.redirect('/dodan_prijatelj')
+
+@bottle.get('/dodan_prijatelj')
+def dodan_prijatelj_get():
+    uporabnik = trenutni_uporabnik()
+    prijatelji = uporabnik.prijatelji
+    izbrani_igralci = uporabnik.igra.igralci.keys()
+    shrani_uporabnika(uporabnik)
+    return bottle.template("nova_igra_igralci", prijatelji = prijatelji, izbrani_igralci = izbrani_igralci)
+
+@bottle.get('/deljenje_kart')
+def deljenje_kart():
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    igralci = igra.igralci.values()
+    return bottle.template("deljenje_kart.html", igralci = igralci)
+
+@bottle.post('/ugiba_<stevilo_kdo_kaj>')
+def ugiba_prvic(stevilo_kdo_kaj):
+    stevilo_ugibanj = stevilo_kdo_kaj.split("_")[0]
+    uporabnisko_ime = stevilo_kdo_kaj.split("_")[1]
+    lastnost = stevilo_kdo_kaj.split("_")[2]
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    if int(stevilo_ugibanj) == 1:
+        igra.igralci[uporabnisko_ime].ugiba_prvo_karto(lastnost)
+    elif int(stevilo_ugibanj) == 2:
+        igra.igralci[uporabnisko_ime].ugiba_drugo_karto(lastnost)
+    elif int(stevilo_ugibanj) == 3:
+        igra.igralci[uporabnisko_ime].ugiba_tretjo_karto(lastnost)
+    shrani_uporabnika(uporabnik)
+    bottle.redirect('/deljenje_kart')
+
+@bottle.post('/zacetek_igre')
+def zacetek_igre():
+    bottle.redirect('/piramida_igra_stanje')
+
+@bottle.get('/piramida_igra_stanje')
+def piramida_igra_stanje():
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    piramida = igra.piramida
+    igralci = igra.igralci
+    return bottle.template("base_piramida_igra.html", piramida=piramida, igralci=igralci)
 
 
 bottle.run(reloader=True, debug=True)

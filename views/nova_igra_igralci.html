@@ -1,0 +1,17 @@
+% rebase('base.html', izbrani_igralci=izbrani_igralci, prijatelji=prijatelji)
+
+% for prijatelj in prijatelji:
+%     if prijatelj in izbrani_igralci:
+<form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
+    <button class="btn btn-success" type="submit">{{prijatelj}}</button>
+</form>
+%     else:
+<form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
+    <button class="btn btn-danger" type="submit">{{prijatelj}}</button>
+</form>
+%     end  
+% end
+
+<form action="/deljenje_kart" method="get" class="d-flex">
+    <button class="btn btn-warning" type="submit">Razdeli karte</button>
+</form>
