@@ -157,7 +157,7 @@ class Igra:
 
     def preveri_kdo_dobi_pozirke(self, karta: Karta):
         """Funkcija vzame karto in vrne slovar z elementi {Igralec: požirki}. Tukaj ni važno, ali se karta deli ali pije."""
-        return {ime: koliko_pozirkov(self.igraleci[ime], karta) for ime in self.igralci.keys()} #Če kaj ne dela je mogoče to; ni preverjeno
+        return {ime: koliko_pozirkov(self.igralci[ime], karta) for ime in self.igralci.keys()} #Če kaj ne dela je mogoče to; ni preverjeno
     
     def naredi_potezo(self): # Ta je verjetno malo manj uporabna
         """Funkcija odpre naslednjo karto in vsem doda koliko mora narediti vsak požirkov"""

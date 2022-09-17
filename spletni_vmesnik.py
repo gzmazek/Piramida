@@ -196,5 +196,27 @@ def piramida_igra_stanje():
     igralci = igra.igralci
     return bottle.template("base_piramida_igra.html", piramida=piramida, igralci=igralci)
 
+@bottle.post('/odpri_naslednjo_karto')
+def odpri_naslednjo_karto_post():
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    slovar_pozirkov = igra.naredi_potezo()
+    if not slovar_pozirkov[0]: #Tu se potem pije, tu lahko potem narediš možnost, da če nima noben požirkov, se odpre nova karta
+        link = "/piramida_igra_pitje_0"
+        for par in slovar_pozirkov[1].items():
+            if par[1] != 0:
+                link += f"_{par[0]}-{par[1]}" ### !!! uporabnisko ime ne sme imeti _ ali - v imenu!!! poglej po celi kodi se
+        shrani_uporabnika(uporabnik)
+        bottle.redirect(f'{link}')
+    else:
+        link = "/piramida_igra_deljenje"
+
+@bottle.get('/piramida_igra_pitje_<slovar_pitja>')
+def piramida_igra_pitje_get(slovar_pitja):
+    if slovar_pitja == "0":
+        bottle.redirect('/piramida_igra_stanje')
+    else:
+        seznam_pitja = slovar_pitja.lstrip("0_").split("_")
+        return bottle.template('piramida_igra_pitje.html', seznam_pitja=seznam_pitja)
 
 bottle.run(reloader=True, debug=True)
