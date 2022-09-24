@@ -1,7 +1,5 @@
 % rebase('base.html', piramida=piramida, igralci=igralci)
 
-
-
 <div class="container">
     <div class="row">
         <div class="col">
@@ -10,7 +8,7 @@
                 % for karta in vrstica[:len(vrstica)//2]:
                 %   if karta.ali_je_odprta:
                 <div class="col-1">
-                    {{karta.stevilo}}
+                    <img src="background.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="40" height="60">
                 </div>
                 %   else:
                 <div class="col-1">
@@ -58,3 +56,9 @@ Tu naredi, da je ta gumb samo, če je zadnja karta še odprta, al pa daj ta gumb
     </div>
 </div>
 
+<img src="/images/background.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="400" height="600">
+<div class="text-center">
+    <img src="/img/background.png" class="rounded" alt="...">
+</div>
+
+<img src="img/background.png" class="img-fluid" alt="Responsive image">

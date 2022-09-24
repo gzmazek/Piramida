@@ -209,7 +209,12 @@ def odpri_naslednjo_karto_post():
         shrani_uporabnika(uporabnik)
         bottle.redirect(f'{link}')
     else:
-        link = "/piramida_igra_deljenje"
+        link = "/piramida_igra_deljenje_0"
+        for par in slovar_pozirkov[1].items():
+            if par[1] != 0:
+                link += f"_{par[0]}-{par[1]}" ### !!! uporabnisko ime ne sme imeti _ ali - v imenu!!! poglej po celi kodi se
+        shrani_uporabnika(uporabnik)
+        bottle.redirect(f'{link}')
 
 @bottle.get('/piramida_igra_pitje_<slovar_pitja>')
 def piramida_igra_pitje_get(slovar_pitja):
@@ -218,5 +223,31 @@ def piramida_igra_pitje_get(slovar_pitja):
     else:
         seznam_pitja = slovar_pitja.lstrip("0_").split("_")
         return bottle.template('piramida_igra_pitje.html', seznam_pitja=seznam_pitja)
+
+@bottle.get('/piramida_igra_deljenje_<slovar_deljenja>')
+def piramida_igra_deljenje_get(slovar_deljenja):
+    if slovar_deljenja == "0":
+        bottle.redirect('/piramida_igra_stanje')
+    else:
+        seznam_deljenja = slovar_deljenja.lstrip("0_").split("_")
+        # tu vmes lahko dodaš še, da je vse zameša seznam, da je vrstni red kdo začne deliti random
+        zadnji = seznam_deljenja.pop()
+        if zadnji[-1] != "1":
+            delilec = zadnji.split("-")[0]
+            novo_stevilo = int(zadnji.split("-")[1]) - 1
+            seznam_deljenja.append(f"{delilec}-{str(novo_stevilo)}")
+            nov_link = "/piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
+            return bottle.template('piramida_igra_deljenje.html', delilec=delilec, nov_link=nov_link)
+        elif zadnji[-1] == "1":
+            delilec = zadnji.split("-")[0]
+            if len(seznam_deljenja) == 0:
+                nov_link = "/piramida_igra_deljenje_0"
+            else:
+                nov_link = "/piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
+            return bottle.template('piramida_igra_deljenje.html', delilec=delilec, nov_link=nov_link)
+
+@bottle.post('/podeli_<igralec_link>')
+def podeli_pozirek_post(igralec_link):
+    pass
 
 bottle.run(reloader=True, debug=True)
