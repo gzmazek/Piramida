@@ -4,15 +4,15 @@
     <div class="row">
         <div class="col">
             % for vrstica in piramida:
-            <div class="row justify-content-center">
+            <div class="row m-2 justify-content-center">
                 % for karta in vrstica[:len(vrstica)//2]:
                 %   if karta.ali_je_odprta:
-                <div class="col-1">
-                    <img src="background.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="40" height="60">
+                <div class="col-2">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
                 </div>
                 %   else:
-                <div class="col-1">
-                    X
+                <div class="col-2">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
                 </div>
                 %   end
                 % end
@@ -21,15 +21,15 @@
         </div>
         <div class="col">
             % for vrstica in piramida:
-            <div class="row justify-content-center">
+            <div class="row m-2 justify-content-center">
                 % for karta in vrstica[len(vrstica)//2:]:
                 %   if karta.ali_je_odprta:
-                <div class="col-1">
-                    {{karta.stevilo}}
+                <div class="col-2">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
                 </div>
                 %   else:
-                <div class="col-1">
-                    X
+                <div class="col-2">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
                 </div>
                 %   end
                 % end
@@ -39,26 +39,34 @@
     </div>
 </div>
 
-Tu naredi, da je ta gumb samo, če je zadnja karta še odprta, al pa daj ta gumb kor na karto
-<form action="/odpri_naslednjo_karto" method="post" class="d-flex">
-    <button class="btn btn-danger" type="submit">Odpri naslednjo karto</button>
-</form>
+<div class="container">
+        <div class="col">
+            <form action="/odpri_naslednjo_karto" method="post" class="d-flex">
+                <button class="btn btn-danger btn-lg btn-block" type="submit">Odpri naslednjo karto</button>
+            </form>
+        </div>
+</div>
 
 <h1>Igralci</h1>
 <div class="container">
     <div class="row">
-        % for igralec in igralci:
+        % for igralec in igralci.values():
         <div class="col">
-            {{igralec}}
-            <h2>Karte:</h2>
+            <div class="row">
+                <h2>{{igralec.ime}}</h2>
+            </div>
+            <div class="row justify-content-left">
+                % for karta in igralec.karte:
+                <div class="col-3 m-2">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                </div>
+                % end
+            </div>
+            <div class="row">
+                Stanje: {{igralec.stanje_v_kozarcu}}
+            </div>
         </div>
         % end
     </div>
 </div>
 
-<img src="/images/background.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="400" height="600">
-<div class="text-center">
-    <img src="/img/background.png" class="rounded" alt="...">
-</div>
-
-<img src="img/background.png" class="img-fluid" alt="Responsive image">
