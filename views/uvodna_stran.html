@@ -1,18 +1,31 @@
 % rebase('base.html')
-% import time
 
-<h1>Piramida</h1>
+<div class="container align-middle">
+    <div class="align-middle" style="text-align: center; height: 300px">
+        <img src="/img/piramida_napis.png" class="mx-auto d-block" alt="Piramida" width="300">
+    </div>
+</div>
 
-<form action="/prijava/" method="post">
-    <input type="text" name="uporabnisko_ime">
-    <input type="password" name="geslo">
-    <input type="submit">
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form action="/prijava/" method="post">
+                <input type="text" name="uporabnisko_ime">
+                <input type="password" name="geslo">
+                <input type="submit">
+            </form>
+        </div>
+        <div class="col-6">
+            <form action="/registracija/" method="get">
+                <button>Registriraj se</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 % if uporabnik == "Neveljavno":
 <h6>Pri prijavi je prišlo do napake, poskusi ponovno</h6>
 % end
 
-<form action="/registracija/" method="get">
-    <button>Registriraj se</button>
-</form>
+

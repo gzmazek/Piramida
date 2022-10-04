@@ -74,7 +74,7 @@ class Igralec: # Paziti moramo, da so igralci vsi z drugačnimi imeni, za to bo 
         self.stanje_v_kozarcu += 10
         return SPIJ_DO_KONCA_IN_NAROCI_NOV_KOZAREC
 
-# Verjetno bo tu potrebno se dodat kekšne return stvari, da sprožimo neko pitje/deljenje
+# Verjetno bo tu potrebno se dodat kakšne return stvari, da sprožimo neko pitje/deljenje
     def dodeli_pozirke(self, n=1):
         self.stanje_v_kozarcu -= n
         self.stevilo_spitih += n

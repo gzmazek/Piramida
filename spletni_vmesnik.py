@@ -22,6 +22,13 @@ def pridobi_stanje():
 def shrani_stanje(stanje):
     stanje.v_datoteko(DATOTEKA_S_STANJEM)
 
+@bottle.route('/img/<filename>')
+def server_static(filename):
+    return bottle.static_file(filename, root='./img')
+
+@bottle.get("/static/<ime_datoteke:path>")
+def css(ime_datoteke):
+    return bottle.static_file(ime_datoteke, root="views")
 
 @bottle.get('/')
 def osnovna_stran():
@@ -218,11 +225,27 @@ def odpri_naslednjo_karto_post():
 
 @bottle.get('/piramida_igra_pitje_<slovar_pitja>')
 def piramida_igra_pitje_get(slovar_pitja):
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra 
+    igralci = igra.igralci.values()
+    prva_zaprta = igra.prva_zaprta_karta
+    zadnja_odprta = [prva_zaprta[0] - 1, (prva_zaprta[0] + 1) * 2] if prva_zaprta[1] == 0 else [prva_zaprta[0], prva_zaprta[1] - 1]
+    odpirajoca_karta = igra.piramida[zadnja_odprta[0]][zadnja_odprta[1]]
     if slovar_pitja == "0":
         bottle.redirect('/piramida_igra_stanje')
     else:
-        seznam_pitja = slovar_pitja.lstrip("0_").split("_")
-        return bottle.template('piramida_igra_pitje.html', seznam_pitja=seznam_pitja)
+        return bottle.template('piramida_igra_pitje.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta)
+
+@bottle.post('/piramida_odstej_pozirke_<slovar_pitja>')
+def piramida_odstej_pozirke(slovar_pitja):
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    seznam_pitja = slovar_pitja.lstrip("0_").split("_")
+    for item in seznam_pitja:
+        item = item.split("-")
+        igra.podeli_pozirke(item[0], int(item[1]))
+    shrani_uporabnika(uporabnik)
+    bottle.redirect('/piramida_igra_stanje')
 
 @bottle.get('/piramida_igra_deljenje_<slovar_deljenja>')
 def piramida_igra_deljenje_get(slovar_deljenja):

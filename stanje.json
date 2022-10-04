@@ -15,11 +15,15 @@
           0,
           0
         ],
+        "miha": [
+          0,
+          0
+        ],
         "pia": [
           0,
           0
         ],
-        "miha": [
+        "gal2": [
           0,
           0
         ]
@@ -56,9 +60,9 @@
         ]
       },
       "prosnje": [
-        "miha",
+        "pia",
         "masa",
-        "pia"
+        "miha"
       ]
     },
     {
@@ -77,12 +81,12 @@
       "vzdevek": "Pia",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
+        "lana": "?",
+        "masa": "?",
         "gal": [
           0,
           0
-        ],
-        "lana": "?",
-        "masa": "?"
+        ]
       },
       "prosnje": []
     },
@@ -94,6 +98,20 @@
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
         "lana": "?",
+        "gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "gal2",
+      "geslo": "dehwyz-5bijWy-kiskid",
+      "email": "@ff",
+      "vzdevek": "Gal2",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
         "gal": [
           0,
           0

@@ -1,9 +1,38 @@
-% rebase('base.html', seznam_pitja=seznam_pitja)
+% rebase('base.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta)
 
-% for item in seznam_pitja:
-{{item}}
-% end
+{{slovar_pitja}}
 
-<form action="/piramida_igra_stanje" method="get" class="d-flex">
+<form action="/piramida_odstej_pozirke_{{slovar_pitja}}" method="post" class="d-flex">
     <button class="btn btn-danger" type="submit">Vse spito, nazaj na piramido</button>
 </form>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="400" height="600">
+        </div>
+        <div class="col">
+            % for igralec in igralci:
+            <div class="row">
+                <div class="col-1">
+                    <h3 style="color: black">{{igralec.ime}}</h3>
+                </div>
+                % for karta in igralec.karte:
+                    % if karta == odpirajoca_karta:
+                    <div class="col">
+                        <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    </div>
+                    % else:
+                    <div class="col">
+                        <img src="/img/karta_{{karta.stevilo}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    </div>
+                    % end
+                % end
+                <div class="col">
+                    <h3 style="color: black">Kolko požirkov</h3>
+                </div>
+            </div>
+            % end
+        </div>
+    </div>
+</div>
