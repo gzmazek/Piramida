@@ -249,6 +249,9 @@ def piramida_odstej_pozirke(slovar_pitja):
 
 @bottle.get('/piramida_igra_deljenje_<slovar_deljenja>')
 def piramida_igra_deljenje_get(slovar_deljenja):
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    igralci = igra.igralci.values()
     if slovar_deljenja == "0":
         bottle.redirect('/piramida_igra_stanje')
     else:
@@ -259,18 +262,25 @@ def piramida_igra_deljenje_get(slovar_deljenja):
             delilec = zadnji.split("-")[0]
             novo_stevilo = int(zadnji.split("-")[1]) - 1
             seznam_deljenja.append(f"{delilec}-{str(novo_stevilo)}")
-            nov_link = "/piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
-            return bottle.template('piramida_igra_deljenje.html', delilec=delilec, nov_link=nov_link)
+            nov_link = "piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
+            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link)
         elif zadnji[-1] == "1":
             delilec = zadnji.split("-")[0]
             if len(seznam_deljenja) == 0:
-                nov_link = "/piramida_igra_deljenje_0"
+                nov_link = "piramida_igra_deljenje_0"
             else:
-                nov_link = "/piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
-            return bottle.template('piramida_igra_deljenje.html', delilec=delilec, nov_link=nov_link)
+                nov_link = "piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
+            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link)
 
 @bottle.post('/podeli_<igralec_link>')
 def podeli_pozirek_post(igralec_link):
-    pass
+    uporabnik = trenutni_uporabnik()
+    igra = uporabnik.igra
+    igralec = igralec_link.split("_", 1)[0]
+    link = igralec_link.split("_", 1)[1]
+    igra.podeli_pozirke(igralec, 1)
+    shrani_uporabnika(uporabnik)
+    bottle.redirect(f"/{link}")
+
 
 bottle.run(reloader=True, debug=True)

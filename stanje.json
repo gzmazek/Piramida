@@ -26,6 +26,10 @@
         "gal2": [
           0,
           0
+        ],
+        "jure": [
+          0,
+          0
         ]
       },
       "prosnje": []
@@ -88,7 +92,9 @@
           0
         ]
       },
-      "prosnje": []
+      "prosnje": [
+        "jure"
+      ]
     },
     {
       "uporabnisko_ime": "miha",
@@ -116,6 +122,21 @@
           0,
           0
         ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "jure",
+      "geslo": "sAgbop-fifjyp-5zyfsu",
+      "email": "jure@jure.si",
+      "vzdevek": "Jure",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "gal": [
+          0,
+          0
+        ],
+        "pia": "?"
       },
       "prosnje": []
     }
