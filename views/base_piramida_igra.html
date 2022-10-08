@@ -8,11 +8,11 @@
                 % for karta in vrstica[:len(vrstica)//2]:
                 %   if karta.ali_je_odprta:
                 <div class="col-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="60" height="90">
                 </div>
                 %   else:
                 <div class="col-2">
-                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="60" height="90">
                 </div>
                 %   end
                 % end
@@ -25,11 +25,11 @@
                 % for karta in vrstica[len(vrstica)//2:]:
                 %   if karta.ali_je_odprta:
                 <div class="col-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="60" height="90">
                 </div>
                 %   else:
                 <div class="col-2">
-                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="60" height="90">
                 </div>
                 %   end
                 % end
@@ -57,13 +57,13 @@
             </div>
             <div class="row justify-content-left">
                 % for karta in igralec.karte:
-                <div class="col-3 m-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                <div class="col-1 m-1">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="40" height="60">
                 </div>
                 % end
-            </div>
-            <div class="row">
-                Stanje: {{igralec.stanje_v_kozarcu}}
+                <div class="col-3 m-2">
+                    <img src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                </div>
             </div>
         </div>
         % end
