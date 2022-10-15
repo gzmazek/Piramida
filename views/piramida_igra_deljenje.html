@@ -12,6 +12,13 @@
             <div class="row">
                 <div class="col-1">
                     <h3 style="color: black">{{igralec.ime}}</h3>
+                    % if igralec.ime != delilec:
+                        <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
+                            <button class="btn btn-danger" type="submit">Podeli</button>
+                        </form>
+                    % else:
+                        <h3>Deli</h3>
+                    % end
                 </div>
                 % for karta in igralec.karte:
                     % if karta == odpirajoca_karta:
@@ -25,7 +32,9 @@
                     % end
                 % end
                 <div class="col">
-                    <h3 style="color: black">Tu not kolko jih še lahko deli pa nekak obkrozi lepo</h3>
+                    <div class="col-3 m-2">
+                        <img src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    </div>
                 </div>
             </div>
             % end
@@ -33,9 +42,3 @@
     </div>
 </div>
 
-
-% for igralec in igralci:
-    <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
-        <button class="btn btn-danger" type="submit">{{igralec.ime}}</button>
-    </form>
-% end

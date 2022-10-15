@@ -1,6 +1,38 @@
-% rebase('base.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta)
+% rebase('base.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta, dict_pitja=dict_pitja)
 
-{{slovar_pitja}}
+<!-- Ta css spremeni se v style css glede na to da ti tisto ni delalo, ker mi ta način ni všeč-->
+<style>
+section {
+  position: relative;
+}
+
+section img {
+  position: absolute;
+}
+.top {
+  animation-name: fade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-direction: alternate;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
+
 <h1 class="display-3"></h1>
 <form action="/piramida_odstej_pozirke_{{slovar_pitja}}" method="post" class="d-flex">
     <button class="btn btn-danger" type="submit">Vse spito, nazaj na piramido</button>
@@ -16,6 +48,7 @@
             <div class="row">
                 <div class="col-1">
                     <h3 style="color: black">{{igralec.ime}}</h3>
+                    <h1>{{dict_pitja[igralec.ime] if igralec.ime in slovar_pitja else 0}}</h1> 
                 </div>
                 % for karta in igralec.karte:
                     % if karta == odpirajoca_karta:
@@ -24,15 +57,35 @@
                     </div>
                     % else:
                     <div class="col">
-                        <img src="/img/karta_{{karta.stevilo}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
                     </div>
                     % end
                 % end
-                <div class="col">
-                    <h3 style="color: black">Kolko požirkov</h3>
-                </div>
+                % if igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) >= 0:
+                    <div class="col">
+                        <section>
+                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime])}}.png" width="80" height="120" />
+                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="80" height="120"/>
+                        </section>
+                    </div>
+                % else:
+                    <div class="col">
+                        <section>
+                            <img class="bottom" src="/img/kozarec_0.png" width="80" height="120" />
+                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="80" height="120"/>
+                        </section>
+                    </div>
+                    <div class="col">
+                        <section>
+                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) + 10}}.png" width="80" height="120" />
+                            <img class="top" src="/img/kozarec_10.png" width="80" height="120"/>
+                        </section>
+                    </div>
+                % end
             </div>
             % end
         </div>
     </div>
 </div>
+
+

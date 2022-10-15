@@ -234,7 +234,14 @@ def piramida_igra_pitje_get(slovar_pitja):
     if slovar_pitja == "0":
         bottle.redirect('/piramida_igra_stanje')
     else:
-        return bottle.template('piramida_igra_pitje.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta)
+        seznam_pitja = slovar_pitja.lstrip("0_").split("_")
+        dict_pitja = {}
+        for item in seznam_pitja:
+            dict_pitja[item.split("-")[0]] = item.split("-")[1]
+        for igralec in igralci:
+            if igralec.ime not in dict_pitja.keys():
+                dict_pitja[igralec.ime] = 0
+        return bottle.template('piramida_igra_pitje.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta, dict_pitja=dict_pitja)
 
 @bottle.post('/piramida_odstej_pozirke_<slovar_pitja>')
 def piramida_odstej_pozirke(slovar_pitja):
@@ -253,8 +260,8 @@ def piramida_igra_deljenje_get(slovar_deljenja):
     igra = uporabnik.igra
     igralci = igra.igralci.values()
     prva_zaprta = igra.prva_zaprta_karta
-   # zadnja_odprta = [prva_zaprta[0] - 1, (prva_zaprta[1] + 1) * 2] if prva_zaprta[1] == 0 else [prva_zaprta[0], prva_zaprta[1] - 1]
-   # odpirajoca_karta = igra.piramida[zadnja_odprta[0]][zadnja_odprta[1]]    ################ to nujno vse še enkrat preglej pa napiši ker crasha
+    zadnja_odprta = [prva_zaprta[0] + 1, -1] if prva_zaprta[1] == 0 else [prva_zaprta[0], prva_zaprta[1] - 1]
+    odpirajoca_karta = igra.piramida[zadnja_odprta[0]][zadnja_odprta[1]]    ################ to nujno vse še enkrat preglej pa napiši ker crasha
     if slovar_deljenja == "0":
         bottle.redirect('/piramida_igra_stanje')
     else:

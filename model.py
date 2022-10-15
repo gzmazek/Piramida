@@ -148,7 +148,7 @@ class Igra:
         n = self.velikost_piramide
         karta_ki_jo_odpiram = self.piramida[self.prva_zaprta_karta[0]][self.prva_zaprta_karta[1]].odpri_karto()
         if self.prva_zaprta_karta == [0, 1]:
-            self.prva_zaprta_karta = None ## !!! TUKAJ MORAŠ IGRO ZAKLJUČITI POTEM KO SPIJEJO tisti en loop se naj še naredi potem pa konec
+            self.prva_zaprta_karta = [-1, 0] # To je samo za odpiranje kart v funkciji piramia_igra_deljenje_get## !!! TUKAJ MORAŠ IGRO ZAKLJUČITI POTEM KO SPIJEJO tisti en loop se naj še naredi potem pa konec
         elif 2 * self.prva_zaprta_karta[0] + 1 == self.prva_zaprta_karta[1]:
             self.prva_zaprta_karta = [self.prva_zaprta_karta[0] - 1, 0]
         else:
