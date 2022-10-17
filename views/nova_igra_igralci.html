@@ -4,11 +4,21 @@
     <img src="/img/Piramida_logo.png" class="mx-auto d-block" alt="X" width="100">
 </div> -->
 
+<h1 class="display-4 text-center">Izberi svoje soigralce</h1>
+
+% if len(izbrani_igralci) > 1:
 <div class="container m-4 d-flex justify-content-center">
     <form action="/deljenje_kart" method="get" class="d-flex">
         <button class="btn btn-warning" type="submit">Razdeli karte</button>
     </form>
 </div>
+% else:
+<div class="container m-4 d-flex justify-content-center">
+    <form action="/deljenje_kart" method="get" class="d-flex">
+        <button class="btn btn-warning disabled" type="submit">Razdeli karte</button>
+    </form>
+</div>
+% end
 
 <div class="container">
     <div class="row">

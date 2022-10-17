@@ -7,10 +7,6 @@
       "vzdevek": "Gal",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "lana": [
-          0,
-          0
-        ],
         "masa": [
           0,
           0
@@ -32,6 +28,10 @@
           0
         ],
         "brina": [
+          0,
+          0
+        ],
+        "vita": [
           0,
           0
         ]
@@ -61,16 +61,11 @@
       "email": "lana@lana.si",
       "vzdevek": "Lana",
       "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "gal": [
-          0,
-          0
-        ]
-      },
+      "prijatelji_in_deljenje": {},
       "prosnje": [
-        "pia",
         "brina",
         "masa",
+        "pia",
         "miha"
       ]
     },
@@ -162,6 +157,20 @@
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
         "lana": "?",
+        "gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "vita",
+      "geslo": "vita",
+      "email": "vitamail",
+      "vzdevek": "Vita",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
         "gal": [
           0,
           0
