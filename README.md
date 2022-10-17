@@ -1,5 +1,6 @@
 # Piramida
 Igra Piramida je pivska igra poznana skoraj vsakemu slovekemu študentu. S svojimi mnogimi različicami je popestrila že mnogo študenskih večerov. Pred igranjem pa se osredotočite še na razdelek **Opozorila o zdravju!**
+
 Program je bil uporabljen kot projekt pri predmetu Uvod v programiranje, vse slike in vizuali so avtorski.
 
 ---
@@ -13,4 +14,5 @@ Program je bil uporabljen kot projekt pri predmetu Uvod v programiranje, vse sli
 
 # Opozorila o zdravju
 S prenosom datoteke soglešate, da ste stari vsaj 18 let. Do pitja alkohola se obnašajte **odgovorno**!
+
 *Minister za zdravje opozarja: Prekomerno pitje alkohola škoduje zdravju!*
