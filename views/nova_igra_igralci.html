@@ -1,17 +1,36 @@
-% rebase('base.html', izbrani_igralci=izbrani_igralci, prijatelji=prijatelji)
+% rebase('base_profil.html', trenutno="Nova igra", izbrani_igralci=izbrani_igralci, prijatelji=prijatelji)
 
-% for prijatelj in prijatelji:
-%     if prijatelj in izbrani_igralci:
-<form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
-    <button class="btn btn-success" type="submit">{{prijatelj}}</button>
-</form>
-%     else:
-<form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
-    <button class="btn btn-danger" type="submit">{{prijatelj}}</button>
-</form>
-%     end  
-% end
+<!-- <div class="container d-flex justify-content-center">
+    <img src="/img/Piramida_logo.png" class="mx-auto d-block" alt="X" width="100">
+</div> -->
 
-<form action="/deljenje_kart" method="get" class="d-flex">
-    <button class="btn btn-warning" type="submit">Razdeli karte</button>
-</form>
+<div class="container m-4 d-flex justify-content-center">
+    <form action="/deljenje_kart" method="get" class="d-flex">
+        <button class="btn btn-warning" type="submit">Razdeli karte</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        % for prijatelj in prijatelji:
+        <div class="col-2">
+            <div class="row">
+                <img src="/img/karta_X.png" class="mx-auto d-block" alt="X" width="5">
+            </div>
+            %     if prijatelj in izbrani_igralci:
+            <form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
+                <button class="btn btn-success" type="submit">{{prijatelj}}</button>
+            </form>
+            %     else:
+            <form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
+                <button class="btn btn-danger" type="submit">{{prijatelj}}</button>
+            </form>
+            %     end 
+        </div>
+        % end
+    </div>
+</div>
+
+
+
+

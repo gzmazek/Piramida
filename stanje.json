@@ -23,11 +23,15 @@
           0,
           0
         ],
-        "gal2": [
+        "jure": [
           0,
           0
         ],
-        "jure": [
+        "vid": [
+          0,
+          0
+        ],
+        "brina": [
           0,
           0
         ]
@@ -65,6 +69,7 @@
       },
       "prosnje": [
         "pia",
+        "brina",
         "masa",
         "miha"
       ]
@@ -112,20 +117,6 @@
       "prosnje": []
     },
     {
-      "uporabnisko_ime": "gal2",
-      "geslo": "dehwyz-5bijWy-kiskid",
-      "email": "@ff",
-      "vzdevek": "Gal2",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "gal": [
-          0,
-          0
-        ]
-      },
-      "prosnje": []
-    },
-    {
       "uporabnisko_ime": "jure",
       "geslo": "sAgbop-fifjyp-5zyfsu",
       "email": "jure@jure.si",
@@ -137,6 +128,44 @@
           0
         ],
         "pia": "?"
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "vid",
+      "geslo": "vid",
+      "email": "vid.mail",
+      "vzdevek": "Vid",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "dora",
+      "geslo": "dora",
+      "email": "doramail",
+      "vzdevek": "Dora",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "brina",
+      "geslo": "brina",
+      "email": "brinamail",
+      "vzdevek": "Brina",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "lana": "?",
+        "gal": [
+          0,
+          0
+        ]
       },
       "prosnje": []
     }

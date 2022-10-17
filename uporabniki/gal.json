@@ -9,80 +9,11 @@
         "ime": "gal",
         "karte": [
           {
-            "stevilo": 7,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 5,
-            "barva": "rumena",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 2,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          }
-        ],
-        "popito": 13,
-        "stanje": 7
-      },
-      "pia": {
-        "ime": "pia",
-        "karte": [
-          {
-            "stevilo": 6,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 5,
-            "barva": "rdeca",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
             "stevilo": 1,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          }
-        ],
-        "popito": 21,
-        "stanje": 9
-      },
-      "masa": {
-        "ime": "masa",
-        "karte": [
-          {
-            "stevilo": 2,
-            "barva": "rumena",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 7,
             "barva": "zelena",
             "odprtost": true,
             "vrednost": 1
           },
-          {
-            "stevilo": 5,
-            "barva": "rdeca",
-            "odprtost": true,
-            "vrednost": 1
-          }
-        ],
-        "popito": 13,
-        "stanje": 7
-      },
-      "miha": {
-        "ime": "miha",
-        "karte": [
           {
             "stevilo": 3,
             "barva": "zelena",
@@ -90,57 +21,45 @@
             "vrednost": 1
           },
           {
-            "stevilo": 8,
-            "barva": "rumena",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 1,
-            "barva": "zelena",
+            "stevilo": 4,
+            "barva": "rdeca",
             "odprtost": true,
             "vrednost": 1
           }
         ],
-        "popito": 20,
-        "stanje": 10
+        "popito": 12,
+        "stanje": 8
       },
-      "lana": {
-        "ime": "lana",
+      "brina": {
+        "ime": "brina",
         "karte": [
           {
-            "stevilo": 1,
+            "stevilo": 3,
+            "barva": "modra",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 8,
             "barva": "rdeca",
             "odprtost": true,
             "vrednost": 1
           },
           {
-            "stevilo": 7,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 2,
-            "barva": "modra",
+            "stevilo": 4,
+            "barva": "zelena",
             "odprtost": true,
             "vrednost": 1
           }
         ],
-        "popito": 13,
-        "stanje": 7
+        "popito": 16,
+        "stanje": 4
       },
-      "jure": {
-        "ime": "jure",
+      "pia": {
+        "ime": "pia",
         "karte": [
           {
-            "stevilo": 2,
-            "barva": "modra",
-            "odprtost": true,
-            "vrednost": 1
-          },
-          {
-            "stevilo": 8,
+            "stevilo": 6,
             "barva": "zelena",
             "odprtost": true,
             "vrednost": 1
@@ -150,149 +69,199 @@
             "barva": "rumena",
             "odprtost": true,
             "vrednost": 1
+          },
+          {
+            "stevilo": 7,
+            "barva": "modra",
+            "odprtost": true,
+            "vrednost": 1
           }
         ],
-        "popito": 16,
-        "stanje": 4
+        "popito": 9,
+        "stanje": 1
+      },
+      "lana": {
+        "ime": "lana",
+        "karte": [
+          {
+            "stevilo": 7,
+            "barva": "rumena",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 9,
+            "barva": "zelena",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 6,
+            "barva": "modra",
+            "odprtost": true,
+            "vrednost": 1
+          }
+        ],
+        "popito": 8,
+        "stanje": 2
+      },
+      "vid": {
+        "ime": "vid",
+        "karte": [
+          {
+            "stevilo": 2,
+            "barva": "modra",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 4,
+            "barva": "rdeca",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 4,
+            "barva": "rdeca",
+            "odprtost": true,
+            "vrednost": 1
+          }
+        ],
+        "popito": 15,
+        "stanje": 5
       }
     },
     "piramida": [
       [
         {
-          "stevilo": 2,
-          "barva": "modra",
-          "odprtost": false,
-          "vrednost": 5
-        },
-        {
           "stevilo": 0,
           "barva": "rdeca",
           "odprtost": false,
           "vrednost": 5
-        }
-      ],
-      [
-        {
-          "stevilo": 8,
-          "barva": "zelena",
-          "odprtost": true,
-          "vrednost": 4
         },
         {
-          "stevilo": 3,
-          "barva": "zelena",
-          "odprtost": true,
-          "vrednost": 4
-        },
-        {
-          "stevilo": 2,
-          "barva": "zelena",
-          "odprtost": true,
-          "vrednost": 4
-        },
-        {
-          "stevilo": 2,
-          "barva": "rumena",
+          "stevilo": 1,
+          "barva": "modra",
           "odprtost": false,
-          "vrednost": 4
+          "vrednost": 5
         }
       ],
       [
         {
           "stevilo": 9,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 4
+        },
+        {
+          "stevilo": 6,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 4
+        },
+        {
+          "stevilo": 0,
+          "barva": "rdeca",
+          "odprtost": false,
+          "vrednost": 4
+        },
+        {
+          "stevilo": 6,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 4
+        }
+      ],
+      [
+        {
+          "stevilo": 4,
           "barva": "rumena",
           "odprtost": true,
           "vrednost": 3
         },
         {
-          "stevilo": 2,
-          "barva": "zelena",
+          "stevilo": 8,
+          "barva": "modra",
+          "odprtost": true,
+          "vrednost": 3
+        },
+        {
+          "stevilo": 6,
+          "barva": "modra",
           "odprtost": true,
           "vrednost": 3
         },
         {
           "stevilo": 4,
-          "barva": "zelena",
-          "odprtost": true,
+          "barva": "rumena",
+          "odprtost": false,
           "vrednost": 3
         },
         {
-          "stevilo": 3,
-          "barva": "rdeca",
-          "odprtost": true,
+          "stevilo": 1,
+          "barva": "zelena",
+          "odprtost": false,
           "vrednost": 3
         },
         {
-          "stevilo": 9,
-          "barva": "zelena",
-          "odprtost": true,
-          "vrednost": 3
-        },
-        {
-          "stevilo": 9,
-          "barva": "zelena",
-          "odprtost": true,
+          "stevilo": 6,
+          "barva": "modra",
+          "odprtost": false,
           "vrednost": 3
         }
       ],
       [
         {
-          "stevilo": 0,
+          "stevilo": 1,
           "barva": "zelena",
+          "odprtost": true,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 5,
+          "barva": "zelena",
+          "odprtost": true,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 3,
+          "barva": "rdeca",
+          "odprtost": true,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 9,
+          "barva": "rdeca",
           "odprtost": true,
           "vrednost": 2
         },
         {
           "stevilo": 6,
-          "barva": "rumena",
-          "odprtost": true,
-          "vrednost": 2
-        },
-        {
-          "stevilo": 4,
           "barva": "rdeca",
           "odprtost": true,
           "vrednost": 2
         },
         {
-          "stevilo": 8,
-          "barva": "zelena",
+          "stevilo": 2,
+          "barva": "rumena",
           "odprtost": true,
           "vrednost": 2
         },
         {
-          "stevilo": 7,
-          "barva": "zelena",
-          "odprtost": true,
-          "vrednost": 2
-        },
-        {
-          "stevilo": 5,
+          "stevilo": 6,
           "barva": "zelena",
           "odprtost": true,
           "vrednost": 2
         },
         {
           "stevilo": 3,
-          "barva": "modra",
-          "odprtost": true,
-          "vrednost": 2
-        },
-        {
-          "stevilo": 3,
-          "barva": "modra",
+          "barva": "zelena",
           "odprtost": true,
           "vrednost": 2
         }
       ],
       [
         {
-          "stevilo": 2,
-          "barva": "rdeca",
-          "odprtost": true,
-          "vrednost": 1
-        },
-        {
           "stevilo": 7,
           "barva": "rumena",
           "odprtost": true,
@@ -305,14 +274,26 @@
           "vrednost": 1
         },
         {
-          "stevilo": 9,
-          "barva": "modra",
+          "stevilo": 0,
+          "barva": "rumena",
           "odprtost": true,
           "vrednost": 1
         },
         {
-          "stevilo": 5,
-          "barva": "modra",
+          "stevilo": 8,
+          "barva": "rdeca",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 3,
+          "barva": "zelena",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 3,
+          "barva": "rdeca",
           "odprtost": true,
           "vrednost": 1
         },
@@ -323,14 +304,8 @@
           "vrednost": 1
         },
         {
-          "stevilo": 5,
-          "barva": "rumena",
-          "odprtost": true,
-          "vrednost": 1
-        },
-        {
-          "stevilo": 1,
-          "barva": "rumena",
+          "stevilo": 8,
+          "barva": "modra",
           "odprtost": true,
           "vrednost": 1
         },
@@ -341,24 +316,25 @@
           "vrednost": 1
         },
         {
-          "stevilo": 2,
-          "barva": "zelena",
+          "stevilo": 8,
+          "barva": "modra",
           "odprtost": true,
           "vrednost": 1
         }
       ]
     ],
     "prva_zaprta_karta": [
-      1,
+      2,
       3
     ]
   },
   "prijatelji": [
+    "brina",
     "pia",
-    "masa",
-    "miha",
     "lana",
+    "vid",
     "jure",
-    "gal2"
+    "miha",
+    "masa"
   ]
 }

@@ -8,57 +8,53 @@
 <h1>{{igralec.ime}}</h1>
 <h3>Požirki: {{igralec.stevilo_spitih}}</h3>
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-1">
     % if len(igralec.karte) > 0:
-       <p>{{igralec.karte[0].stevilo}}, {{igralec.karte[0].barva}}</p>
+      <div class="col-2">
+        <img src="/img/karta_{{igralec.karte[0].stevilo}}_{{igralec.karte[0].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[0].stevilo}}" width="60" height="90">
+      </div>
     % else:
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Katere barve bo tvoja karta</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
           % for barva in ['rdeca', 'zelena', 'modra', 'rumena']:
           <form action="/ugiba_1_{{igralec.ime}}_{{barva}}" method="post" class="d-flex">
             <button class="btn btn-danger" type="submit">{{barva}}</button>
           </form>
           % end
-        </div>
-      </div>
     % end
     </div>
-    <div class="col-sm-2">
+    <div class="col-1">
      % if len(igralec.karte) > 1:
-        <p>{{igralec.karte[1].stevilo}}, {{igralec.karte[1].barva}}</p>
-     % else:
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <div class="col-2">
+        <img src="/img/karta_{{igralec.karte[1].stevilo}}_{{igralec.karte[1].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[1].stevilo}}" width="60" height="90">
+      </div>
+     % elif len(igralec.karte) > 0:
           % for velikost in ['vecje', 'manjse']:
           <form action="/ugiba_2_{{igralec.ime}}_{{velikost}}" method="post" class="d-flex">
             <button class="btn btn-danger" type="submit">{{velikost}}</button>
           </form>
           % end
-        </div>
+      % else:
+      <div class="col-2">
+        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="60" height="90">
       </div>
       % end
     </div>
-    <div class="col-sm-2">
+    <div class="col-1">
         % if len(igralec.karte) > 2:
-            <p>{{igralec.karte[2].stevilo}}, {{igralec.karte[2].barva}}</p>
-        % else:
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <div class="col-1">
+            <img src="/img/karta_{{igralec.karte[2].stevilo}}_{{igralec.karte[2].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[2].stevilo}}" width="60" height="90">
+          </div>
+        % elif len(igralec.karte) > 1:
             % for pozicija in ['vmes', 'zunaj']:
             <form action="/ugiba_3_{{igralec.ime}}_{{pozicija}}" method="post" class="d-flex">
                 <button class="btn btn-danger" type="submit">{{pozicija}}</button>
             </form>
             % end
-          </div>
+        % else:
+        <div class="col-2">
+          <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="60" height="90">
         </div>
-      </div>
-      % end
+        % end
+    </div>
   </div>
 % end
 

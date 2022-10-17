@@ -1,0 +1,170 @@
+{
+  "uporabnisko_ime": "dora",
+  "geslo": "dora",
+  "email": "doramail",
+  "vzdevek": "Dora",
+  "igra": {
+    "igralci": {
+      "dora": {
+        "ime": "dora",
+        "karte": [
+          {
+            "stevilo": 4,
+            "barva": "rumena",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 9,
+            "barva": "modra",
+            "odprtost": true,
+            "vrednost": 1
+          },
+          {
+            "stevilo": 9,
+            "barva": "rdeca",
+            "odprtost": true,
+            "vrednost": 1
+          }
+        ],
+        "popito": 3,
+        "stanje": 7
+      }
+    },
+    "piramida": [
+      [
+        {
+          "stevilo": 1,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 4
+        },
+        {
+          "stevilo": 7,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 4
+        }
+      ],
+      [
+        {
+          "stevilo": 3,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 3
+        },
+        {
+          "stevilo": 8,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 3
+        },
+        {
+          "stevilo": 4,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 3
+        },
+        {
+          "stevilo": 9,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 3
+        }
+      ],
+      [
+        {
+          "stevilo": 4,
+          "barva": "rdeca",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 1,
+          "barva": "rdeca",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 9,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 9,
+          "barva": "rumena",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 2,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 2
+        },
+        {
+          "stevilo": 5,
+          "barva": "modra",
+          "odprtost": false,
+          "vrednost": 2
+        }
+      ],
+      [
+        {
+          "stevilo": 2,
+          "barva": "rumena",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 7,
+          "barva": "rumena",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 6,
+          "barva": "rdeca",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 6,
+          "barva": "modra",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 4,
+          "barva": "zelena",
+          "odprtost": true,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 4,
+          "barva": "rdeca",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 0,
+          "barva": "rdeca",
+          "odprtost": false,
+          "vrednost": 1
+        },
+        {
+          "stevilo": 0,
+          "barva": "zelena",
+          "odprtost": false,
+          "vrednost": 1
+        }
+      ]
+    ],
+    "prva_zaprta_karta": [
+      3,
+      5
+    ]
+  },
+  "prijatelji": []
+}

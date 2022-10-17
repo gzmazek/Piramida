@@ -292,5 +292,10 @@ def podeli_pozirek_post(igralec_link):
     shrani_uporabnika(uporabnik)
     bottle.redirect(f"/{link}")
 
+@bottle.post('/zakljuci_igro')
+def zakljuci_igro_post():
+    #Tukaj še naredi da se ti shranijo požirki nekam drugam v stanje.json
+    bottle.redirect('/doma/')
+
 
 bottle.run(reloader=True, debug=True)
