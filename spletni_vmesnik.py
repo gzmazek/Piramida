@@ -1,3 +1,4 @@
+import random
 import bottle
 import model
 from model import CAKAJOCA_PROSNJA, Stanje, Uporabnik, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
@@ -266,21 +267,27 @@ def piramida_igra_deljenje_get(slovar_deljenja):
         bottle.redirect('/piramida_igra_stanje')
     else:
         seznam_deljenja = slovar_deljenja.lstrip("0_").split("_")
-        # tu vmes lahko dodaš še, da je vse zameša seznam, da je vrstni red kdo začne deliti random
+        random.shuffle(seznam_deljenja)
+        dict_deljenja = {}
+        for item in seznam_deljenja:
+            dict_deljenja[item.split("-")[0]] = item.split("-")[1]
+        for igralec in igralci:
+            if igralec.ime not in dict_deljenja.keys():
+                dict_deljenja[igralec.ime] = 0
         zadnji = seznam_deljenja.pop()
         if zadnji[-1] != "1":
             delilec = zadnji.split("-")[0]
             novo_stevilo = int(zadnji.split("-")[1]) - 1
             seznam_deljenja.append(f"{delilec}-{str(novo_stevilo)}")
             nov_link = "piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
-            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta)
+            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta, dict_deljenja=dict_deljenja)
         elif zadnji[-1] == "1":
             delilec = zadnji.split("-")[0]
             if len(seznam_deljenja) == 0:
                 nov_link = "piramida_igra_deljenje_0"
             else:
                 nov_link = "piramida_igra_deljenje_0_" + "_".join(seznam_deljenja)
-            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta)
+            return bottle.template('piramida_igra_deljenje.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta, dict_deljenja=dict_deljenja)
 
 @bottle.post('/podeli_<igralec_link>')
 def podeli_pozirek_post(igralec_link):

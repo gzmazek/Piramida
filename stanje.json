@@ -1,155 +1,6 @@
 {
   "uporabniki": [
     {
-      "uporabnisko_ime": "gal",
-      "geslo": "mojegeslo",
-      "email": "moj_mail@mail.com",
-      "vzdevek": "Gal",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "masa": [
-          0,
-          0
-        ],
-        "miha": [
-          0,
-          0
-        ],
-        "pia": [
-          0,
-          0
-        ],
-        "jure": [
-          0,
-          0
-        ],
-        "vid": [
-          0,
-          0
-        ],
-        "brina": [
-          0,
-          0
-        ],
-        "vita": [
-          0,
-          0
-        ]
-      },
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "masa",
-      "geslo": "wyjxus-fempy1-zeXzez",
-      "email": "masa@masa.com",
-      "vzdevek": "Masa",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "lana": "?",
-        "gal": [
-          0,
-          0
-        ]
-      },
-      "prosnje": [
-        "pia"
-      ]
-    },
-    {
-      "uporabnisko_ime": "lana",
-      "geslo": "lana",
-      "email": "lana@lana.si",
-      "vzdevek": "Lana",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {},
-      "prosnje": [
-        "brina",
-        "masa",
-        "pia",
-        "miha"
-      ]
-    },
-    {
-      "uporabnisko_ime": "jaka",
-      "geslo": "pucpo4-cibqoz-Tygjep",
-      "email": "jaka@mail.com",
-      "vzdevek": "Jaka",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {},
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "pia",
-      "geslo": "pia",
-      "email": "piamail",
-      "vzdevek": "Pia",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "lana": "?",
-        "masa": "?",
-        "gal": [
-          0,
-          0
-        ]
-      },
-      "prosnje": [
-        "jure"
-      ]
-    },
-    {
-      "uporabnisko_ime": "miha",
-      "geslo": "miha",
-      "email": "mailmail",
-      "vzdevek": "Miha",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "lana": "?",
-        "gal": [
-          0,
-          0
-        ]
-      },
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "jure",
-      "geslo": "sAgbop-fifjyp-5zyfsu",
-      "email": "jure@jure.si",
-      "vzdevek": "Jure",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "gal": [
-          0,
-          0
-        ],
-        "pia": "?"
-      },
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "vid",
-      "geslo": "vid",
-      "email": "vid.mail",
-      "vzdevek": "Vid",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {
-        "gal": [
-          0,
-          0
-        ]
-      },
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "dora",
-      "geslo": "dora",
-      "email": "doramail",
-      "vzdevek": "Dora",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {},
-      "prosnje": []
-    },
-    {
       "uporabnisko_ime": "brina",
       "geslo": "brina",
       "email": "brinamail",
@@ -165,13 +16,180 @@
       "prosnje": []
     },
     {
-      "uporabnisko_ime": "vita",
+      "uporabnisko_ime": "Gal",
+      "geslo": "gal",
+      "email": "mail",
+      "vzdevek": "Gal",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Vid": [
+          0,
+          0
+        ],
+        "Brina": [
+          0,
+          0
+        ],
+        "Vito": [
+          0,
+          0
+        ],
+        "LanaR": [
+          0,
+          0
+        ],
+        "LanaV": [
+          0,
+          0
+        ],
+        "Tjasa": [
+          0,
+          0
+        ],
+        "Urban": [
+          0,
+          0
+        ],
+        "Dora": [
+          0,
+          0
+        ],
+        "Vita": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "LanaR",
+      "geslo": "lanar",
+      "email": "mail",
+      "vzdevek": "LanaR",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Brina",
+      "geslo": "brina",
+      "email": "mail",
+      "vzdevek": "Brina",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "LanaV",
+      "geslo": "lanav",
+      "email": "mail",
+      "vzdevek": "LanaV",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Vito",
+      "geslo": "vito",
+      "email": "mail",
+      "vzdevek": "Vito",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Vid",
+      "geslo": "vid",
+      "email": "mail",
+      "vzdevek": "Vid",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "TjaÅ¡a",
+      "geslo": "tjaÅ¡a",
+      "email": "mail",
+      "vzdevek": "TjaÅ¡a",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Tjasa",
+      "geslo": "tjasa",
+      "email": "mail",
+      "vzdevek": "Tjasa",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Urban",
+      "geslo": "urban",
+      "email": "mail",
+      "vzdevek": "Urban",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Dora",
+      "geslo": "dora",
+      "email": "mail",
+      "vzdevek": "Dora",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ]
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Vita",
       "geslo": "vita",
-      "email": "vitamail",
+      "email": "mail",
       "vzdevek": "Vita",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "gal": [
+        "Gal": [
           0,
           0
         ]

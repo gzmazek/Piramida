@@ -1,81 +1,79 @@
 % rebase('base.html', slovar_pitja=slovar_pitja, igralci=igralci, odpirajoca_karta=odpirajoca_karta, dict_pitja=dict_pitja)
 
-<!-- Ta css spremeni se v style css glede na to da ti tisto ni delalo, ker mi ta način ni všeč-->
-<style>
-section {
-  position: relative;
-}
+% if len(igralci) < 5:
+%   WIDTH = 300/len(igralci)
+% else:
+%   WIDTH = 400/len(igralci)
+% end
 
-section img {
-  position: absolute;
-}
-.top {
-  animation-name: fade;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
-  animation-direction: alternate;
-}
+<h1 class="display-3 text-center" style="background-color:black; color: gray;">{{odpirajoca_karta.vrednost}} pijejo...</h1>
 
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-</style>
-
-<h1 class="display-3" style="background-color:black; color: gray;">_ požirkov pijejo...</h1>
-
-<div class="container m-3">
+<div class="container">
     <div class="row">
         <div class="col-5">
-            <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="400" height="600">
+            <divm>
+                <divm class= "square">
+                    <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="300">
+                </divm>
+            </divm>
+<!--            <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="400" height="600"> -->
         </div>
         <div class="col">
             % for igralec in igralci:
-            <div class="row">
-                <div class="col-1">
+            <div class="row d-flex justify-content-center">
+                % if len(igralci) < 8:
+                <div class="col-2 text-center">
                     <h3 style="color: black">{{igralec.ime}}</h3>
-                    <h1>{{dict_pitja[igralec.ime] if igralec.ime in slovar_pitja else 0}}</h1> 
+                    <h2 style="color: gray;">{{dict_pitja[igralec.ime] if igralec.ime in slovar_pitja else 0}}</h2> 
                 </div>
+                % else:
+                <div class="col-2 text-center">
+                    <h5 style="color: black">{{igralec.ime}}</h5>
+                    <h4 style="color: gray;">{{dict_pitja[igralec.ime] if igralec.ime in slovar_pitja else 0}}</h4> 
+                </div>
+                % end
                 % for karta in igralec.karte:
                     % if karta == odpirajoca_karta:
-                    <div class="col">
-                        <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <div class="col-2">
+                        <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}">
                     </div>
                     % else:
-                    <div class="col">
-                        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <div class="col-2">
+                        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}">
                     </div>
                     % end
                 % end
                 % if igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) >= 0:
                     <div class="col-2 d-flex justify-content-center">
                         <section>
-                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime])}}.png" width="80" height="120" />
-                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="80" height="120"/>
+                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime])}}.png" width="{{WIDTH}}"/>
+                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="{{WIDTH}}"/>
                         </section>
                     </div>
+                % elif igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) <= -10:
+                    <div class="col-1 d-flex justify-content-center">
+                        <section>
+                            <img class="bottom" src="/img/kozarec_0.png" width="{{WIDTH}}"/>
+                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="{{WIDTH}}"/>
+                        </section>
+                    </div>
+                    <div class="col-1 d-flex justify-content-center">
+                        <section>
+                            <img class="bottom" src="/img/kozarec_0.png" width="{{WIDTH}}"/>
+                            <img class="top" src="/img/kozarec_10.png" width="{{WIDTH}}"/>
+                        </section>
+                </div>
                 % else:
-                    <div class="col-1">
+                    <div class="col-1 d-flex justify-content-center">
                         <section>
-                            <img class="bottom" src="/img/kozarec_0.png" width="80" height="120" />
-                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="80" height="120"/>
+                            <img class="bottom" src="/img/kozarec_0.png" width="{{WIDTH}}"/>
+                            <img class="top" src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" width="{{WIDTH}}"/>
                         </section>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 d-flex justify-content-center">
                         <section>
-                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) + 10}}.png" width="80" height="120" />
-                            <img class="top" src="/img/kozarec_10.png" width="80" height="120"/>
+                            <img class="bottom" src="/img/kozarec_{{igralec.stanje_v_kozarcu - int(dict_pitja[igralec.ime]) + 10}}.png" width="{{WIDTH}}"/>
+                            <img class="top" src="/img/kozarec_10.png" width="{{WIDTH}}"/>
                         </section>
                     </div>
                 % end
@@ -89,6 +87,4 @@ section img {
         <button class="btn btn-dark" type="submit" style="background-color: black;">Vse spito, nazaj na piramido</button>
     </form>
 </div>
-
-
 

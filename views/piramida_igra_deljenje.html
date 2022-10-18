@@ -1,39 +1,69 @@
-% rebase('base.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta)
+% rebase('base.html',igralci=igralci, delilec=delilec, nov_link=nov_link, odpirajoca_karta=odpirajoca_karta, dict_deljenja=dict_deljenja)
 
-<p>Deli {{delilec}}</p>
+% if len(igralci) < 5:
+%   WIDTH = 300/len(igralci)
+% else:
+%   WIDTH = 400/len(igralci)
+% end
+
+<h1 class="display-3 text-center" style="background-color:black; color: gray;">{{odpirajoca_karta.vrednost}} delijo...</h1>
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="400" height="600">
+        <div class="col-5">
+            <divm>
+                <divm class= "square">
+                    <img src="/img/karta_{{odpirajoca_karta.stevilo}}_{{odpirajoca_karta.barva}}.png" class="rounded mx-auto d-block" alt="{{odpirajoca_karta.stevilo}}" width="300">
+                </divm>
+            </divm>
         </div>
         <div class="col">
             % for igralec in igralci:
             <div class="row">
-                <div class="col-1">
+                <div class="col-1 text-center">
+                    <h2 style="color: gray;">{{dict_deljenja[igralec.ime]}}</h2>
+                </div>
+                % if len(igralci) < 8:
+                <div class="col-2 text-center">
                     <h3 style="color: black">{{igralec.ime}}</h3>
                     % if igralec.ime != delilec:
                         <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
                             <button class="btn btn-danger" type="submit">Podeli</button>
                         </form>
                     % else:
-                        <h3>Deli</h3>
+                        <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
+                            <button class="btn btn-warning disabled" type="submit">Deli</button>
+                        </form>
                     % end
                 </div>
+                % else:
+                <div class="col-2 text-center">
+                    <h5 style="color: black">{{igralec.ime}}</h5>
+                    % if igralec.ime != delilec:
+                        <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
+                            <button class="btn btn-danger btn-sm" type="submit">Podeli</button>
+                        </form>
+                    % else:
+                        <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
+                            <button class="btn btn-danger disabled btn-sm" type="submit">Deli</button>
+                        </form>
+                    % end
+                </div>
+                % end
                 % for karta in igralec.karte:
                     % if karta == odpirajoca_karta:
-                    <div class="col">
-                        <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <div class="col-2">
+                        <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}">
                     </div>
                     % else:
-                    <div class="col">
-                        <img src="/img/karta_{{karta.stevilo}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                    <div class="col-2">
+                        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}">
                     </div>
                     % end
                 % end
-                <div class="col">
-                    <div class="col-3 m-2">
-                        <img src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="80" height="120">
+                <div class="col-2">
+                    <div class="col-3 m-1">
+                        <img src="/img/kozarec_{{igralec.stanje_v_kozarcu}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}">
                     </div>
                 </div>
             </div>

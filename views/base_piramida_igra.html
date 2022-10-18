@@ -1,5 +1,11 @@
 % rebase('base.html', piramida=piramida, igralci=igralci)
 
+% if len(igralci) > 8:
+%   WIDTH = 40
+% else:
+%   WIDTH = 60
+% end
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -67,7 +73,7 @@
             <div class="row justify-content-left">
                 % for karta in igralec.karte:
                 <div class="col-1 m-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="60" height="90">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH}}"> <!-- to še razmisli velikost -->
                 </div>
                 % end
                 <div class="col-3 m-2">
