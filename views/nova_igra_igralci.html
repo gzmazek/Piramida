@@ -6,7 +6,7 @@
 
 <h1 class="display-4 text-center">Izberi svoje soigralce</h1>
 
-% if len(izbrani_igralci) > 1:
+% if len(izbrani_igralci) > 2:
 <div class="container m-4 d-flex justify-content-center">
     <form action="/deljenje_kart" method="get" class="d-flex">
         <button class="btn btn-warning" type="submit">Razdeli karte</button>
@@ -23,10 +23,7 @@
 <div class="container">
     <div class="row">
         % for prijatelj in prijatelji:
-        <div class="col-2">
-            <div class="row">
-                <img src="/img/karta_X.png" class="mx-auto d-block" alt="X" width="5">
-            </div>
+        <div class="col-1">
             %     if prijatelj in izbrani_igralci:
             <form action="/dodaj_odstrani_prijatelja_{{prijatelj}}" method="post" class="d-flex">
                 <button class="btn btn-success" type="submit">{{prijatelj}}</button>
