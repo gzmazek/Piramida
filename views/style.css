@@ -39,12 +39,18 @@ divm {
 .square {
 	width: 200px;
 	height: 300px;
-	transform: rotateY(45deg);
+	transform: rotateY(0deg);
 	animation: rotateAnimation 2.5s linear infinite;
-  animation-iteration-count: 2;
+  animation-iteration-count: 1;
 }
 
+
 @keyframes rotateAnimation {
-	from {transform: rotateY(90deg);}
-	to {transform: rotateY(270deg);}
+	from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
+

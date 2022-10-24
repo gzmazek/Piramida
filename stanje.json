@@ -57,6 +57,14 @@
         "Vita": [
           0,
           0
+        ],
+        "Jaka": [
+          0,
+          0
+        ],
+        "Tadej": [
+          0,
+          0
         ]
       },
       "prosnje": []
@@ -73,7 +81,9 @@
           0
         ]
       },
-      "prosnje": []
+      "prosnje": [
+        "Jaka"
+      ]
     },
     {
       "uporabnisko_ime": "Brina",
@@ -129,16 +139,9 @@
           0
         ]
       },
-      "prosnje": []
-    },
-    {
-      "uporabnisko_ime": "TjaÅ¡a",
-      "geslo": "tjaÅ¡a",
-      "email": "mail",
-      "vzdevek": "TjaÅ¡a",
-      "ali_zdaj_igra": false,
-      "prijatelji_in_deljenje": {},
-      "prosnje": []
+      "prosnje": [
+        "Jaka"
+      ]
     },
     {
       "uporabnisko_ime": "Tjasa",
@@ -166,7 +169,9 @@
           0
         ]
       },
-      "prosnje": []
+      "prosnje": [
+        "Jaka"
+      ]
     },
     {
       "uporabnisko_ime": "Dora",
@@ -180,7 +185,9 @@
           0
         ]
       },
-      "prosnje": []
+      "prosnje": [
+        "Jaka"
+      ]
     },
     {
       "uporabnisko_ime": "Vita",
@@ -194,6 +201,50 @@
           0
         ]
       },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Jaka",
+      "geslo": "jaka",
+      "email": "mail",
+      "vzdevek": "Jak",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ],
+        "Urban": "?",
+        "Vid": "?",
+        "LanaR": "?",
+        "Dora": "?"
+      },
+      "prosnje": [
+        "Tadej"
+      ]
+    },
+    {
+      "uporabnisko_ime": "Tadej",
+      "geslo": "tadej",
+      "email": "mail",
+      "vzdevek": "Tadej",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {
+        "Gal": [
+          0,
+          0
+        ],
+        "Jaka": "?"
+      },
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Domen",
+      "geslo": "kazhyq-nesjik-Fusfu3",
+      "email": "gal.zmazek@os-ljudskivrtptuj.si",
+      "vzdevek": "Domen",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
       "prosnje": []
     }
   ]

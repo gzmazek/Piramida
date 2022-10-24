@@ -7,6 +7,7 @@ Program je bil uporabljen kot projekt pri predmetu Uvod v programiranje, vse sli
 
 # Navodila za zagon
 - Iz Github-a si prenesite datoteko `.zip` in jo shranite na računalnik.
+- Na svoj računalnik si namestite tudi bottle z ukazom `pip install bottle` ali `pip3 install bottle`
 - Odprite mapo, ter zaženite datoteko spletni_vmesnik.py s programom *Python*.
 - Odprite svoj brskalnik in v naslovno vrstico vpišite http://127.0.0.1:8080/
 

@@ -3,10 +3,10 @@
 % if len(igralci) < 5:
 %   WIDTH = 300/len(igralci)
 % else:
-%   WIDTH = 400/len(igralci)
+%   WIDTH = 500/len(igralci)
 % end
 
-<h1 class="display-3 text-center" style="background-color:black; color: gray;">{{odpirajoca_karta.vrednost}} delijo...</h1>
+<h1 class="display-3 text-center" style="background-color:black; color: gray;">1 požirek deli {{delilec}}</h1>
 
 <div class="container">
     <div class="row">
@@ -45,7 +45,7 @@
                         </form>
                     % else:
                         <form action="/podeli_{{igralec.ime}}_{{nov_link}}" method="post" class="d-flex">
-                            <button class="btn btn-danger disabled btn-sm" type="submit">Deli</button>
+                            <button class="btn btn-warning disabled btn-sm" type="submit">Deli</button>
                         </form>
                     % end
                 </div>

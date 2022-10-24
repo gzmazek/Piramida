@@ -1,14 +1,35 @@
 % rebase('base.html')
 
-<form action="/registracija/" method="POST">
-    <input type="text" name="uporabnisko_ime">
-    <input type="text" name="email">
-    <input type="password" name="geslo">
-    <input type="text" name="vzdevek">
-    <button type="submit" class="btn btn-primary">Registriraj se</button>
-</form>
 
-Nujno mores tu dodat katerih znakov ne smejo imeti v uporabniskem imenu zaradi koda; _, -, poglej se cez celo kodo al pa samo napisi da so crke lahko samo
+<div class="container">
+    <div class="display-3 text-center">Registracija</div>
+        <form action="/" method="get">
+            <button class="btn btn-danger">Domov</button>
+        </form>
+    <form action="/registracija/" method="POST">
+        <div class="form-group">
+            <label for="UserName">Uporabniško ime</label>
+            <input type="username" name="uporabnisko_ime" class="form-control" id="UserName" aria-describedby="usernamelHelp" placeholder="Uporabniško ime">
+            % if napaka == "zasedno":
+            <small style="color: red;" class="form-text text-muted">To uporabniško ime je že zasedno, izberi drugega</small>
+            % elif napaka == "znaki":
+            <small style="color: red;" class="form-text text-muted">V uporabniškem imenu ne smete uporabiti znakov _ in -</small>
+            % end
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
+          <small id="emailHelp" class="form-text text-muted">Email bo uporabljen le za igro.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" name="geslo" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="nickName1">Vzdevek</label>
+            <input type="text" name="vzdevek" class="form-control" id="nickName1" placeholder="Vzdevek">
+          </div>
+        <button type="submit" class="btn btn-primary">Registriraj se</button>
+    </form>
+</div>
 
-% if napaka=="zasedno":
-<h6>To uporabniško ime je že zasedno, izberi drugega</h6>

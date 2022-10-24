@@ -5,6 +5,11 @@
 % else:
 %   WIDTH = 60
 % end
+% if len(piramida) > 4:
+%   WIDTH2 = 70
+% else:
+%   WIDTH2 = 70
+% end
 
 <div class="container">
     <div class="row">
@@ -14,11 +19,11 @@
                 % for karta in vrstica[:len(vrstica)//2]:
                 %   if karta.ali_je_odprta:
                 <div class="col-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="70">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH2}}">
                 </div>
                 %   else:
                 <div class="col-2">
-                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="70">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH2}}">
                 </div>
                 %   end
                 % end
@@ -31,11 +36,11 @@
                 % for karta in vrstica[len(vrstica)//2:]:
                 %   if karta.ali_je_odprta:
                 <div class="col-2">
-                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="70">
+                    <img src="/img/karta_{{karta.stevilo}}_{{karta.barva}}.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH2}}">
                 </div>
                 %   else:
                 <div class="col-2">
-                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="70">
+                    <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="{{karta.stevilo}}" width="{{WIDTH2}}">
                 </div>
                 %   end
                 % end

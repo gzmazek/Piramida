@@ -1,63 +1,79 @@
-% rebase('base.html', igralci = igralci)
+% rebase('base.html', igralci = igralci, vsi_odprti=vsi_odprti)
 
-<h2>Deljenje kart</h2>
-<h4>Vsak igralec dobi po 3 karte, pri prvi ugotavlja barvo karte, ki jo dobi, pri drugi večje/manjše in pri tretji vmes/zunaj.</h4>
-<p>Če so karte enake, žal nimaš sreče.</p>
-
-% for igralec in igralci:
-<h1>{{igralec.ime}}</h1>
-<h3>Požirki: {{igralec.stevilo_spitih}}</h3>
-<div class="row">
-    <div class="col-1">
-    % if len(igralec.karte) > 0:
-      <div class="col-2">
-        <img src="/img/karta_{{igralec.karte[0].stevilo}}_{{igralec.karte[0].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[0].stevilo}}" width="60" height="90">
+% WIDTH = 80
+<div class="display-3 text-center">Deljenje kart</div>
+<div class="conatiner">
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <div class="alert alert-danger" role="alert">
+        Vrsti red deljenja kart si lahko izberete sami. Ko stisnete na gumb, se vam avtomatsko dodeli karta in požirek. 
       </div>
-    % else:
-          % for barva in ['rdeca', 'zelena', 'modra', 'rumena']:
-          <form action="/ugiba_1_{{igralec.ime}}_{{barva}}" method="post" class="d-flex">
-            <button class="btn btn-danger" type="submit">{{barva}}</button>
-          </form>
-          % end
-    % end
-    </div>
-    <div class="col-1">
-     % if len(igralec.karte) > 1:
-      <div class="col-2">
-        <img src="/img/karta_{{igralec.karte[1].stevilo}}_{{igralec.karte[1].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[1].stevilo}}" width="60" height="90">
-      </div>
-     % elif len(igralec.karte) > 0:
-          % for velikost in ['vecje', 'manjse']:
-          <form action="/ugiba_2_{{igralec.ime}}_{{velikost}}" method="post" class="d-flex">
-            <button class="btn btn-danger" type="submit">{{velikost}}</button>
-          </form>
-          % end
-      % else:
-      <div class="col-2">
-        <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="60" height="90">
-      </div>
-      % end
-    </div>
-    <div class="col-1">
-        % if len(igralec.karte) > 2:
-          <div class="col-1">
-            <img src="/img/karta_{{igralec.karte[2].stevilo}}_{{igralec.karte[2].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[2].stevilo}}" width="60" height="90">
-          </div>
-        % elif len(igralec.karte) > 1:
-            % for pozicija in ['vmes', 'zunaj']:
-            <form action="/ugiba_3_{{igralec.ime}}_{{pozicija}}" method="post" class="d-flex">
-                <button class="btn btn-danger" type="submit">{{pozicija}}</button>
-            </form>
-            % end
-        % else:
-        <div class="col-2">
-          <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="60" height="90">
-        </div>
-        % end
     </div>
   </div>
-% end
+</div>
 
-<form action="/zacetek_igre" method="post" class="d-flex">
-  <button class="btn btn-danger" type="submit">Začni igro</button>
+<div class="container">
+  <div class="row">
+    % for igralec in igralci:
+    <div class="col-3">
+      <h1>{{igralec.ime}}</h1>
+      <h3>Požirki: {{igralec.stevilo_spitih}}</h3>
+      <div class="row">
+          <div class="col">
+          % if len(igralec.karte) > 0:
+            <div class="col">
+              <img src="/img/karta_{{igralec.karte[0].stevilo}}_{{igralec.karte[0].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[0].stevilo}}" width="{{WIDTH}}">
+            </div>
+          % else:
+                % for barva in ['rdeca', 'zelena', 'modra', 'rumena']:
+                <form action="/ugiba_1_{{igralec.ime}}_{{barva}}" method="post" class="d-flex">
+                  <button class="btn btn-danger btn-sm" type="submit">{{barva}}</button>
+                </form>
+                % end
+          % end
+          </div>
+          <div class="col">
+           % if len(igralec.karte) > 1:
+            <div class="col">
+              <img src="/img/karta_{{igralec.karte[1].stevilo}}_{{igralec.karte[1].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[1].stevilo}}" width="{{WIDTH}}">
+            </div>
+           % elif len(igralec.karte) > 0:
+                % for velikost in ['vecje', 'manjse']:
+                <form action="/ugiba_2_{{igralec.ime}}_{{velikost}}" method="post" class="d-flex">
+                  <button class="btn btn-danger" type="submit">{{velikost}}</button>
+                </form>
+                % end
+            % else:
+            <div class="col">
+              <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="{{WIDTH}}">
+            </div>
+            % end
+          </div>
+          <div class="col">
+              % if len(igralec.karte) > 2:
+                <div class="col">
+                  <img src="/img/karta_{{igralec.karte[2].stevilo}}_{{igralec.karte[2].barva}}.png" class="rounded mx-auto d-block" alt="{{igralec.karte[2].stevilo}}" width="{{WIDTH}}">
+                </div>
+              % elif len(igralec.karte) > 1:
+                  % for pozicija in ['vmes', 'zunaj']:
+                  <form action="/ugiba_3_{{igralec.ime}}_{{pozicija}}" method="post" class="d-flex">
+                      <button class="btn btn-danger" type="submit">{{pozicija}}</button>
+                  </form>
+                  % end
+              % else:
+              <div class="col">
+                <img src="/img/karta_X.png" class="rounded mx-auto d-block" alt="X" width="{{WIDTH}}">
+              </div>
+              % end
+          </div>
+        </div>
+    </div>
+    % end
+  </div>
+</div>
+
+% if vsi_odprti:
+<form action="/zacetek_igre" method="post" class="d-flex justify-content-center">
+  <button class="btn btn-success" type="submit">Začni igro</button>
 </form>
+% end

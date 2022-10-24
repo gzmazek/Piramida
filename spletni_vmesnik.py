@@ -15,7 +15,7 @@ def trenutni_uporabnik():
     return uporabnik_iz_svoje_datoteke(uporabnisko_ime) if uporabnisko_ime else 0
 
 def shrani_uporabnika(uporabnik):
-    uporabnik.v_svojo_datoteko() #Shrani od uporabnika v njegovo datoteko
+    uporabnik.v_svojo_datoteko()
 
 def pridobi_stanje():
     return model.stanje_iz_datoteke(DATOTEKA_S_STANJEM)
@@ -47,13 +47,15 @@ def registracija_post():
     vzdevek = bottle.request.forms["vzdevek"]
     if uporabnisko_ime in pridobi_stanje().uporabniki.keys():
         return bottle.template("registracija.html", napaka="zasedno")
+    elif "_" in uporabnisko_ime or "-" in uporabnisko_ime:
+        return bottle.template("registracija.html", napaka="znaki")
     else:
         nov_uporabnik = Uporabnik(uporabnisko_ime, geslo, email, vzdevek)
         stanje = pridobi_stanje()
         stanje.dodaj_uporabnika(nov_uporabnik)
         shrani_stanje(stanje)
         nov_uporabnik.v_svojo_datoteko()
-        bottle.redirect("/")    ###### TU SEM OSTAL NAZADNJE, vglavnem pregledal in dela, nisem preveril prijave ampak verjetno se ne dela
+        bottle.redirect("/") 
 
 @bottle.post('/prijava/')
 def prijava_post():
@@ -145,7 +147,7 @@ def nova_igra():
 @bottle.post('/zacni_igro_<i>/')
 def zacni_igro_i(i):
     uporabnik = trenutni_uporabnik()
-    velikost = int(i) # tu lahko daš da v naslovu zahteva int
+    velikost = int(i)
     uporabnik.zacni_igro(velikost)
     shrani_uporabnika(uporabnik)
     dodaj_odstrani_prijatelja(uporabnik.uporabnisko_ime)
@@ -174,7 +176,12 @@ def deljenje_kart():
     uporabnik = trenutni_uporabnik()
     igra = uporabnik.igra
     igralci = igra.igralci.values()
-    return bottle.template("deljenje_kart.html", igralci = igralci)
+    vsi_odprti = True
+    for igralec in igralci:
+        if len(igralec.karte) != 3:
+            vsi_odprti = False
+            break
+    return bottle.template("deljenje_kart.html", igralci = igralci, vsi_odprti=vsi_odprti)
 
 @bottle.post('/ugiba_<stevilo_kdo_kaj>')
 def ugiba_prvic(stevilo_kdo_kaj):
@@ -209,7 +216,7 @@ def odpri_naslednjo_karto_post():
     uporabnik = trenutni_uporabnik()
     igra = uporabnik.igra
     slovar_pozirkov = igra.naredi_potezo()
-    if not slovar_pozirkov[0]: #Tu se potem pije, tu lahko potem narediš možnost, da če nima noben požirkov, se odpre nova karta
+    if not slovar_pozirkov[0]: #Tu se potem pije, tu lahko potem narediš možnost, da če nima noben požirkov, se odpre nova karta; kasneje za update
         link = "/piramida_igra_pitje_0"
         for par in slovar_pozirkov[1].items():
             if par[1] != 0:
@@ -262,7 +269,7 @@ def piramida_igra_deljenje_get(slovar_deljenja):
     igralci = igra.igralci.values()
     prva_zaprta = igra.prva_zaprta_karta
     zadnja_odprta = [prva_zaprta[0] + 1, -1] if prva_zaprta[1] == 0 else [prva_zaprta[0], prva_zaprta[1] - 1]
-    odpirajoca_karta = igra.piramida[zadnja_odprta[0]][zadnja_odprta[1]]    ################ to nujno vse še enkrat preglej pa napiši ker crasha
+    odpirajoca_karta = igra.piramida[zadnja_odprta[0]][zadnja_odprta[1]]
     if slovar_deljenja == "0":
         bottle.redirect('/piramida_igra_stanje')
     else:
