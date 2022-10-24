@@ -46,10 +46,6 @@
           0,
           0
         ],
-        "Dora": [
-          0,
-          0
-        ],
         "Vita": [
           0,
           0
@@ -65,9 +61,12 @@
         "Vid": [
           0,
           0
-        ]
+        ],
+        "Domen": "?"
       },
-      "prosnje": []
+      "prosnje": [
+        "Dora"
+      ]
     },
     {
       "uporabnisko_ime": "LanaR",
@@ -182,10 +181,7 @@
       "vzdevek": "Dora",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "Gal": [
-          0,
-          0
-        ]
+        "Gal": "?"
       },
       "prosnje": [
         "Jaka"
@@ -250,7 +246,9 @@
       "vzdevek": "Domen",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
-      "prosnje": []
+      "prosnje": [
+        "Gal"
+      ]
     },
     {
       "uporabnisko_ime": "Jernej",
