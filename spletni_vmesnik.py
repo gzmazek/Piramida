@@ -316,4 +316,4 @@ def zakljuci_igro_post():
     bottle.redirect('/doma/')
 
 
-bottle.run(reloader=True, debug=True)
+bottle.run(reloader=False, debug=False)
