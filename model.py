@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from doctest import ELLIPSIS_MARKER
+from itertools import product
 import random
 import json 
 
@@ -21,6 +22,19 @@ def koliko_pozirkov(igralec, karta):
         if i == karta:
             pozirki += karta.vrednost
     return pozirki
+
+def zasifriraj_geslo(geslo):
+    crke = "<zxcvbnm,.-asdfghjklčćžqwertyuiopšđ1234567890/+>ZXCVBNM;:_ASDFGHJKLČĆŽQWERTYUIOPŠĐ!()=?*"
+    for znak in geslo:
+        if not znak in crke:
+            geslo = geslo.replace(znak, "f")
+    vsota = 100000000
+    for indeks in range(len(geslo)):
+        if indeks % 2 == 0:
+            vsota += crke.index(geslo[indeks]) ** crke.index(geslo[indeks])
+        else:
+            vsota *= crke.index(geslo[indeks]) ** crke.index(geslo[indeks])
+    return vsota
 ############################################################################
 
 class Karta:

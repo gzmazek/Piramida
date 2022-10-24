@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div style="background-color: gray;" class="col-6 d-flex justify-content-center">
+        <div class="col-6 d-flex justify-content-center">
             <form action="/prijava/" method="post">
                 <div class="form-group">
                   <label for="uporabniskoIme1">Uporabniško ime</label>
@@ -27,19 +27,20 @@
                 </div>
               </form>
         </div>
-        <div style="background-color: red;" class="col-6 d-flex justify-content-center">
+        <div class="col-6 d-flex justify-content-center">
             <form action="/registracija/" method="get">
                 <button class="btn btn-dark">Registriraj se</button>
             </form>
         </div>
     </div>
+    % if uporabnik == "Neveljavno":
+    <h6 style="color: red;">Pri prijavi je prišlo do napake, poskusi ponovno</h6>
+    % end
 </div>
 
 
 
-% if uporabnik == "Neveljavno":
-<h6>Pri prijavi je prišlo do napake, poskusi ponovno</h6>
-% end
+
 
 
 

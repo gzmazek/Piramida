@@ -2,7 +2,7 @@
   "uporabniki": [
     {
       "uporabnisko_ime": "brina",
-      "geslo": "brina",
+      "geslo": 38328945734657251096788877715071239487301452470611,
       "email": "brinamail",
       "vzdevek": "Brina",
       "ali_zdaj_igra": false,
@@ -17,15 +17,11 @@
     },
     {
       "uporabnisko_ime": "Gal",
-      "geslo": "gal",
+      "geslo": 124938215863099918713800452104,
       "email": "mail",
       "vzdevek": "Gal",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {
-        "Vid": [
-          0,
-          0
-        ],
         "Brina": [
           0,
           0
@@ -65,13 +61,17 @@
         "Tadej": [
           0,
           0
+        ],
+        "Vid": [
+          0,
+          0
         ]
       },
       "prosnje": []
     },
     {
       "uporabnisko_ime": "LanaR",
-      "geslo": "lanar",
+      "geslo": 161048799417870451054764988213911729083941654851,
       "email": "mail",
       "vzdevek": "LanaR",
       "ali_zdaj_igra": false,
@@ -87,7 +87,7 @@
     },
     {
       "uporabnisko_ime": "Brina",
-      "geslo": "brina",
+      "geslo": 38328945734657251096788877715071239487301452470611,
       "email": "mail",
       "vzdevek": "Brina",
       "ali_zdaj_igra": false,
@@ -101,7 +101,7 @@
     },
     {
       "uporabnisko_ime": "LanaV",
-      "geslo": "lanav",
+      "geslo": 161048799411714331474557830903115054795541451331,
       "email": "mail",
       "vzdevek": "LanaV",
       "ali_zdaj_igra": false,
@@ -115,7 +115,7 @@
     },
     {
       "uporabnisko_ime": "Vito",
-      "geslo": "vito",
+      "geslo": 351440058253783836173612280776327898943175355606715249465231568416954037658071777743949226253200093,
       "email": "mail",
       "vzdevek": "Vito",
       "ali_zdaj_igra": false,
@@ -129,7 +129,7 @@
     },
     {
       "uporabnisko_ime": "Vid",
-      "geslo": "vid",
+      "geslo": 20589165917594716230144000000000000000302875106592253,
       "email": "mail",
       "vzdevek": "Vid",
       "ali_zdaj_igra": false,
@@ -137,15 +137,17 @@
         "Gal": [
           0,
           0
+        ],
+        "Jaka": [
+          0,
+          0
         ]
       },
-      "prosnje": [
-        "Jaka"
-      ]
+      "prosnje": []
     },
     {
       "uporabnisko_ime": "Tjasa",
-      "geslo": "tjasa",
+      "geslo": 3270606144289417545088835249880059783381573611580334267156341527828404563,
       "email": "mail",
       "vzdevek": "Tjasa",
       "ali_zdaj_igra": false,
@@ -159,7 +161,7 @@
     },
     {
       "uporabnisko_ime": "Urban",
-      "geslo": "urban",
+      "geslo": 4509916727991925743537049035492737202241191435976332561642112667731194343126503194123720815,
       "email": "mail",
       "vzdevek": "Urban",
       "ali_zdaj_igra": false,
@@ -175,7 +177,7 @@
     },
     {
       "uporabnisko_ime": "Dora",
-      "geslo": "dora",
+      "geslo": 1475012731705592392425482170211018984947873847029055893101680820936656409,
       "email": "mail",
       "vzdevek": "Dora",
       "ali_zdaj_igra": false,
@@ -191,7 +193,7 @@
     },
     {
       "uporabnisko_ime": "Vita",
-      "geslo": "vita",
+      "geslo": 5874329324436137761201014387154317506993127213314204245495512633,
       "email": "mail",
       "vzdevek": "Vita",
       "ali_zdaj_igra": false,
@@ -205,7 +207,7 @@
     },
     {
       "uporabnisko_ime": "Jaka",
-      "geslo": "jaka",
+      "geslo": 67339631732271293130647819500945099106965881,
       "email": "mail",
       "vzdevek": "Jak",
       "ali_zdaj_igra": false,
@@ -215,7 +217,10 @@
           0
         ],
         "Urban": "?",
-        "Vid": "?",
+        "Vid": [
+          0,
+          0
+        ],
         "LanaR": "?",
         "Dora": "?"
       },
@@ -225,7 +230,7 @@
     },
     {
       "uporabnisko_ime": "Tadej",
-      "geslo": "tadej",
+      "geslo": 11236767263670626733818646514539260798864513022799904717885510763980674061629989107927,
       "email": "mail",
       "vzdevek": "Tadej",
       "ali_zdaj_igra": false,
@@ -240,9 +245,18 @@
     },
     {
       "uporabnisko_ime": "Domen",
-      "geslo": "kazhyq-nesjik-Fusfu3",
+      "geslo": 1115328769996794225266759679054479162451681507244602260326618232068443008648609812006313293901009487897824502554240681328020418204834120292621232539506606458288320986890599899505065744087253920767555807656304745690447519831876453128590471139608783274209807544471363881833553,
       "email": "gal.zmazek@os-ljudskivrtptuj.si",
       "vzdevek": "Domen",
+      "ali_zdaj_igra": false,
+      "prijatelji_in_deljenje": {},
+      "prosnje": []
+    },
+    {
+      "uporabnisko_ime": "Jernej",
+      "geslo": 2835770275713629790053418550133143224287090166439927341429271185856448526164330537,
+      "email": "gal@zmazek.com",
+      "vzdevek": "Jernej",
       "ali_zdaj_igra": false,
       "prijatelji_in_deljenje": {},
       "prosnje": []

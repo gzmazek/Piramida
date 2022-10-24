@@ -56,7 +56,7 @@
       <div class="row">
         <div class="col">
           <p class="card-text">Če pritisneš sprejmi, se bo uporabnik dodal med prijatelje, če pa ga zavrneš, mu lahko le pošlješ prošnjo in ne moreš več sprejeti te.</p>
-          <p class="card-text">Če prrijatelja sprejmeš mu s tem zaupaš, da te bo dodajal v igre, ko boš ti res prisoten (kasneje si boš lahko tudi nastavil, katerim prijateljem dovoliš upravljanje s tvojim profilom)</p>
+          <p class="card-text">Če prijatelja sprejmeš, mu s tem zaupaš, da te bo dodajal v igre, ko boš ti res prisoten</p>
         </div>
          <div class="col">
            <div class="row d-grid gap-2">
@@ -78,15 +78,15 @@
 % if prijatelji:
 %   for prijatelj in prijatelji:
 
-<div class="card bg-warning">
+<div class="card bg-light">
     <div class="card-header">
       Prijatelj
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{prijatelj}}, kasneje daj tukaj vzdevek od prijatlje</h5>
+      <h5 class="card-title">{{prijatelj}}</h5>
       <div class="row">
         <div class="col">
-          <p class="card-text">Tukaj bodo informacije o prijatlju, ko klikneš izbriši daj še eno opozorilo</p>
+          <p class="card-text">Če izbrišeš prijatelja, ga ne moreš več dodajati v igre. Izgubljena bo tudi vsa zgodovina s prijateljem.</p>
         </div>
          <div class="col">
            <div class="row d-grid gap-2">

@@ -1,14 +1,13 @@
 import random
 import bottle
 import model
-from model import CAKAJOCA_PROSNJA, Stanje, Uporabnik, Igra, Igralec, Karta, uporabnik_iz_slovarja, uporabnik_iz_svoje_datoteke
+from model import CAKAJOCA_PROSNJA, Uporabnik, uporabnik_iz_svoje_datoteke, zasifriraj_geslo
 
 DATOTEKA_S_STANJEM = "stanje.json"
 PISKOTEK_PRIJAVA = "prijavljen"
 PISKOTEK_UPORABNISKO_IME = "uporabnik"
 SKRIVNOST = "psst..."
 
-# Tu dodaj da če datoteka ne obstaja da jo nardi
 
 def trenutni_uporabnik():
     uporabnisko_ime = bottle.request.get_cookie(PISKOTEK_UPORABNISKO_IME, secret=SKRIVNOST)
@@ -43,7 +42,7 @@ def registracija_get():
 def registracija_post():
     uporabnisko_ime = bottle.request.forms["uporabnisko_ime"]
     email = bottle.request.forms["email"]
-    geslo = bottle.request.forms["geslo"]
+    geslo = zasifriraj_geslo(bottle.request.forms["geslo"])
     vzdevek = bottle.request.forms["vzdevek"]
     if uporabnisko_ime in pridobi_stanje().uporabniki.keys():
         return bottle.template("registracija.html", napaka="zasedno")
@@ -60,7 +59,7 @@ def registracija_post():
 @bottle.post('/prijava/')
 def prijava_post():
     uporabnisko_ime = bottle.request.forms["uporabnisko_ime"]
-    geslo = bottle.request.forms["geslo"]
+    geslo = zasifriraj_geslo(bottle.request.forms["geslo"])
     if uporabnisko_ime in pridobi_stanje().uporabniki.keys():
         if geslo == pridobi_stanje().uporabniki[uporabnisko_ime].geslo:
             bottle.response.set_cookie(PISKOTEK_UPORABNISKO_IME, uporabnisko_ime, path="/", secret=SKRIVNOST)
@@ -136,7 +135,7 @@ def izbrisi_prijatelja(prijatelj):
     dodan_prijatelj_prijatelj = uporabnik_iz_svoje_datoteke(prijatelj).odstrani_prijatelja(uporabnik)
     dodan_prijatelj_uporabnik.v_svojo_datoteko()
     dodan_prijatelj_prijatelj.v_svojo_datoteko()
-    bottle.redirect('/moji_prijatelji/0') # pred to funkcijo naredi, da te najprej tisti gumb nekam preusmeri im potem tam gumb na to funkcjio, ki realno zbriše stvari
+    bottle.redirect('/moji_prijatelji/0')
 
 @bottle.get('/nova_igra')
 def nova_igra():
@@ -206,6 +205,8 @@ def zacetek_igre():
 @bottle.get('/piramida_igra_stanje')
 def piramida_igra_stanje():
     uporabnik = trenutni_uporabnik()
+    if uporabnik.igra == 0:
+        bottle.redirect("/nova_igra")
     igra = uporabnik.igra
     piramida = igra.piramida
     igralci = igra.igralci
@@ -308,7 +309,10 @@ def podeli_pozirek_post(igralec_link):
 
 @bottle.post('/zakljuci_igro')
 def zakljuci_igro_post():
-    #Tukaj še naredi da se ti shranijo požirki nekam drugam v stanje.json
+    uporabnik = trenutni_uporabnik()
+    uporabnik.igra = 0
+    shrani_uporabnika(uporabnik)
+    #Tukaj še naredi da se ti shranijo požirki nekam drugam v stanje.json, kasneje po oddaji, ko boš dodal še statistiko
     bottle.redirect('/doma/')
 
 

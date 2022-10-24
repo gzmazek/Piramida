@@ -54,7 +54,7 @@
     <div class="container">
         <div class="col d-flex justify-content-center">
             <form action="/odpri_naslednjo_karto" method="post" class="d-flex">
-                <button class="btn btn-danger btn-lg btn-block" type="submit">Odpri naslednjo karto</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Odpri naslednjo karto</button>
             </form>
         </div>
     </div>
@@ -90,3 +90,19 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="col d-flex justify-content-center">
+        <form action="/doma/" method="get" class="d-flex">
+            <button class="btn btn-warning btn-lg btn-block" type="submit">Izhod iz igre</button>
+        </form>
+    </div>
+</div>
+% if not piramida[0][-1].ali_je_odprta:
+<div class="container">
+    <div class="col d-flex justify-content-center">
+        <form action="/zakljuci_igro" method="post" class="d-flex">
+            <button class="btn btn-danger btn-lg btn-block" type="submit">Zaključi igro</button>
+        </form>
+    </div>
+</div>
+% end
