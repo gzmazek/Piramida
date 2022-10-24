@@ -283,7 +283,7 @@ def piramida_igra_deljenje_get(slovar_deljenja):
             if igralec.ime not in dict_deljenja.keys():
                 dict_deljenja[igralec.ime] = 0
         zadnji = seznam_deljenja.pop()
-        if zadnji[-1] != "1":
+        if zadnji[-1] != "1" or (zadnji[-1] == "1" and zadnji[-2] == "1"):
             delilec = zadnji.split("-")[0]
             novo_stevilo = int(zadnji.split("-")[1]) - 1
             seznam_deljenja.append(f"{delilec}-{str(novo_stevilo)}")

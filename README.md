@@ -1,5 +1,5 @@
 # Piramida
-Igra Piramida je pivska igra poznana skoraj vsakemu slovekemu študentu. S svojimi mnogimi različicami je popestrila že mnogo študenskih večerov. Pred igranjem pa se osredotočite še na razdelek **Opozorila o zdravju!**
+Igra Piramida je pivska igra poznana skoraj vsakemu slovenskemu študentu. S svojimi mnogimi različicami je popestrila že mnogo študenskih večerov. Pred igranjem pa se osredotočite še na razdelek **Opozorila o zdravju!**
 
 Program je bil uporabljen kot projekt pri predmetu Uvod v programiranje, vse slike in vizuali so avtorski.
 
